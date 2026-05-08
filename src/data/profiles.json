@@ -1,0 +1,107 @@
+{
+  "version": "1.0.0",
+  "profiles": [
+    {
+      "id": "lean-builder",
+      "name": "Lean Builder",
+      "description": "Efficient operator focused on essential tools with minimal waste. You prioritize value and avoid over-provisioning.",
+      "badge": {
+        "icon": "🎯",
+        "color": "green",
+        "gradient": "from-green-500 to-emerald-600"
+      },
+      "characteristics": [
+        "Spend below median for team size",
+        "Minimal tool overlap",
+        "Right-sized plans",
+        "High seat utilization"
+      ],
+      "typicalSpendRange": { "min": 20, "max": 50 }
+    },
+    {
+      "id": "api-heavy-research",
+      "name": "API-Heavy Research Team",
+      "description": "Power users leveraging API access for custom workflows. You build on top of AI infrastructure rather than using pre-built tools.",
+      "badge": {
+        "icon": "🔬",
+        "color": "purple",
+        "gradient": "from-purple-500 to-indigo-600"
+      },
+      "characteristics": [
+        "High API spend relative to seats",
+        "Custom integrations",
+        "Research-focused use case",
+        "Multiple model providers"
+      ],
+      "typicalSpendRange": { "min": 100, "max": 500 }
+    },
+    {
+      "id": "premium-workflow-optimizer",
+      "name": "Premium Workflow Optimizer",
+      "description": "You invest in top-tier tools and maximum limits. Speed and capability matter more than cost.",
+      "badge": {
+        "icon": "⚡",
+        "color": "yellow",
+        "gradient": "from-yellow-500 to-orange-600"
+      },
+      "characteristics": [
+        "Premium/Pro+ plans",
+        "High spend per developer",
+        "Multiple premium tools",
+        "Workflow optimization focus"
+      ],
+      "typicalSpendRange": { "min": 80, "max": 200 }
+    },
+    {
+      "id": "collaboration-overpayer",
+      "name": "Collaboration Overpayer",
+      "description": "You have team plans but low utilization. There may be opportunities to optimize seat allocation.",
+      "badge": {
+        "icon": "👥",
+        "color": "blue",
+        "gradient": "from-blue-500 to-cyan-600"
+      },
+      "characteristics": [
+        "Team/Business plans",
+        "Excess seats",
+        "Low seat utilization",
+        "Collaboration tool focus"
+      ],
+      "typicalSpendRange": { "min": 50, "max": 150 }
+    },
+    {
+      "id": "enterprise-overprovisioned",
+      "name": "Enterprise Overprovisioned",
+      "description": "You have enterprise plans but team size doesn't justify the tier. Consider downgrading to team plans.",
+      "badge": {
+        "icon": "🏢",
+        "color": "red",
+        "gradient": "from-red-500 to-pink-600"
+      },
+      "characteristics": [
+        "Enterprise plans",
+        "Small team size (<50)",
+        "High per-seat costs",
+        "Underutilized enterprise features"
+      ],
+      "typicalSpendRange": { "min": 100, "max": 300 }
+    },
+    {
+      "id": "experimental-ai-native",
+      "name": "Experimental AI Native",
+      "description": "Early adopter trying multiple tools to find the right fit. You're exploring the AI landscape.",
+      "badge": {
+        "icon": "🚀",
+        "color": "indigo",
+        "gradient": "from-indigo-500 to-purple-600"
+      },
+      "characteristics": [
+        "Many tools (5+)",
+        "Multiple overlaps",
+        "Diverse categories",
+        "Exploration phase"
+      ],
+      "typicalSpendRange": { "min": 60, "max": 180 }
+    }
+  ]
+}

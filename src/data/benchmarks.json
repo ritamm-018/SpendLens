@@ -1,0 +1,185 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-05-07",
+  "metadata": {
+    "totalSamples": 1247,
+    "dataSource": "SpendLens Intelligence Platform",
+    "methodology": "Aggregated from anonymized audit data across AI-powered startups"
+  },
+  "segments": {
+    "startup-coding-small": {
+      "id": "startup-coding-small",
+      "name": "Small Coding-Focused Startups",
+      "criteria": {
+        "teamSizeMin": 1,
+        "teamSizeMax": 10,
+        "useCase": "coding"
+      },
+      "sampleSize": 247,
+      "metrics": {
+        "medianSpendPerDev": 45,
+        "p25SpendPerDev": 30,
+        "p75SpendPerDev": 65,
+        "p90SpendPerDev": 95,
+        "medianToolCount": 3,
+        "categoryAllocation": {
+          "ide-assistant": 45,
+          "chat-assistant": 30,
+          "api-provider": 15,
+          "design-tool": 10
+        },
+        "commonTools": [
+          { "toolId": "cursor", "percentage": 68 },
+          { "toolId": "github-copilot", "percentage": 42 },
+          { "toolId": "chatgpt", "percentage": 85 },
+          { "toolId": "claude", "percentage": 53 }
+        ]
+      }
+    },
+    "startup-coding-medium": {
+      "id": "startup-coding-medium",
+      "name": "Medium Coding-Focused Startups",
+      "criteria": {
+        "teamSizeMin": 11,
+        "teamSizeMax": 50,
+        "useCase": "coding"
+      },
+      "sampleSize": 189,
+      "metrics": {
+        "medianSpendPerDev": 55,
+        "p25SpendPerDev": 40,
+        "p75SpendPerDev": 75,
+        "p90SpendPerDev": 110,
+        "medianToolCount": 4,
+        "categoryAllocation": {
+          "ide-assistant": 40,
+          "chat-assistant": 25,
+          "api-provider": 25,
+          "design-tool": 10
+        },
+        "commonTools": [
+          { "toolId": "cursor", "percentage": 72 },
+          { "toolId": "github-copilot", "percentage": 58 },
+          { "toolId": "chatgpt", "percentage": 81 },
+          { "toolId": "claude", "percentage": 49 }
+        ]
+      }
+    },
+    "startup-research-small": {
+      "id": "startup-research-small",
+      "name": "Small Research-Focused Startups",
+      "criteria": {
+        "teamSizeMin": 1,
+        "teamSizeMax": 10,
+        "useCase": "research"
+      },
+      "sampleSize": 156,
+      "metrics": {
+        "medianSpendPerDev": 55,
+        "p25SpendPerDev": 35,
+        "p75SpendPerDev": 80,
+        "p90SpendPerDev": 120,
+        "medianToolCount": 4,
+        "categoryAllocation": {
+          "chat-assistant": 50,
+          "api-provider": 30,
+          "ide-assistant": 15,
+          "design-tool": 5
+        },
+        "commonTools": [
+          { "toolId": "chatgpt", "percentage": 92 },
+          { "toolId": "claude", "percentage": 78 },
+          { "toolId": "openai-api", "percentage": 45 },
+          { "toolId": "anthropic-api", "percentage": 38 }
+        ]
+      }
+    },
+    "startup-mixed-small": {
+      "id": "startup-mixed-small",
+      "name": "Small Mixed-Use Startups",
+      "criteria": {
+        "teamSizeMin": 1,
+        "teamSizeMax": 10,
+        "useCase": "mixed"
+      },
+      "sampleSize": 312,
+      "metrics": {
+        "medianSpendPerDev": 50,
+        "p25SpendPerDev": 32,
+        "p75SpendPerDev": 70,
+        "p90SpendPerDev": 100,
+        "medianToolCount": 4,
+        "categoryAllocation": {
+          "ide-assistant": 35,
+          "chat-assistant": 35,
+          "api-provider": 20,
+          "design-tool": 10
+        },
+        "commonTools": [
+          { "toolId": "cursor", "percentage": 61 },
+          { "toolId": "chatgpt", "percentage": 88 },
+          { "toolId": "claude", "percentage": 56 },
+          { "toolId": "github-copilot", "percentage": 39 }
+        ]
+      }
+    },
+    "startup-api-heavy": {
+      "id": "startup-api-heavy",
+      "name": "API-Heavy Teams",
+      "criteria": {
+        "teamSizeMin": 1,
+        "teamSizeMax": 50,
+        "useCase": "api-integration"
+      },
+      "sampleSize": 143,
+      "metrics": {
+        "medianSpendPerDev": 85,
+        "p25SpendPerDev": 60,
+        "p75SpendPerDev": 120,
+        "p90SpendPerDev": 180,
+        "medianToolCount": 5,
+        "categoryAllocation": {
+          "api-provider": 55,
+          "chat-assistant": 25,
+          "ide-assistant": 15,
+          "design-tool": 5
+        },
+        "commonTools": [
+          { "toolId": "openai-api", "percentage": 78 },
+          { "toolId": "anthropic-api", "percentage": 62 },
+          { "toolId": "chatgpt", "percentage": 71 },
+          { "toolId": "claude", "percentage": 58 }
+        ]
+      }
+    },
+    "default": {
+      "id": "default",
+      "name": "General AI-Powered Teams",
+      "criteria": {
+        "teamSizeMin": 1,
+        "teamSizeMax": 1000,
+        "useCase": null
+      },
+      "sampleSize": 1247,
+      "metrics": {
+        "medianSpendPerDev": 50,
+        "p25SpendPerDev": 33,
+        "p75SpendPerDev": 72,
+        "p90SpendPerDev": 105,
+        "medianToolCount": 4,
+        "categoryAllocation": {
+          "ide-assistant": 38,
+          "chat-assistant": 32,
+          "api-provider": 20,
+          "design-tool": 10
+        },
+        "commonTools": [
+          { "toolId": "chatgpt", "percentage": 84 },
+          { "toolId": "cursor", "percentage": 64 },
+          { "toolId": "claude", "percentage": 55 },
+          { "toolId": "github-copilot", "percentage": 46 }
+        ]
+      }
+    }
+  }
+}

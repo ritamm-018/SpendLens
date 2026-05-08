@@ -1,0 +1,177 @@
+{
+  "version": "1.0.0",
+  "statements": [
+    {
+      "id": "coding-cursor-insight",
+      "content": "Teams focused on {{useCase}} typically spend ${{benchmarkAmount}}/developer on IDE assistants. Your selection of {{toolName}} aligns with high-performing engineering teams.",
+      "trigger": {
+        "type": "tool-added",
+        "conditions": [
+          { "type": "use-case", "value": "coding" },
+          { "type": "tool", "toolId": "cursor" }
+        ]
+      },
+      "priority": 8,
+      "category": "insight",
+      "factBased": true
+    },
+    {
+      "id": "coding-copilot-insight",
+      "content": "{{toolName}} is used by {{percentage}}% of coding-focused startups your size. It's a popular choice for engineering velocity.",
+      "trigger": {
+        "type": "tool-added",
+        "conditions": [
+          { "type": "use-case", "value": "coding" },
+          { "type": "tool", "toolId": "github-copilot" }
+        ]
+      },
+      "priority": 7,
+      "category": "insight",
+      "factBased": true
+    },
+    {
+      "id": "research-claude-insight",
+      "content": "Research teams often prefer {{toolName}} for its analytical capabilities. {{percentage}}% of research-focused organizations use this tool.",
+      "trigger": {
+        "type": "tool-added",
+        "conditions": [
+          { "type": "use-case", "value": "research" },
+          { "type": "tool", "toolId": "claude" }
+        ]
+      },
+      "priority": 8,
+      "category": "insight",
+      "factBased": true
+    },
+    {
+      "id": "high-spend-warning",
+      "content": "Your spend per developer is tracking {{percentile}}% above startups your size. We'll identify optimization opportunities in your analysis.",
+      "trigger": {
+        "type": "spend-threshold",
+        "conditions": [
+          { "type": "spend-above", "amount": 100 }
+        ]
+      },
+      "priority": 10,
+      "category": "warning",
+      "factBased": true
+    },
+    {
+      "id": "moderate-spend-info",
+      "content": "Your current spend of ${{totalSpend}}/month is within the typical range for {{teamSize}}-person teams.",
+      "trigger": {
+        "type": "spend-threshold",
+        "conditions": [
+          { "type": "spend-above", "amount": 30 }
+        ]
+      },
+      "priority": 5,
+      "category": "insight",
+      "factBased": true
+    },
+    {
+      "id": "overlap-detected",
+      "content": "{{tool1}} and {{tool2}} have overlapping functionality. Most teams find one {{category}} assistant sufficient — we'll analyze if consolidation makes sense.",
+      "trigger": {
+        "type": "overlap",
+        "conditions": [
+          { "type": "has-overlap", "category": "ide-assistant" }
+        ]
+      },
+      "priority": 9,
+      "category": "tip",
+      "factBased": true
+    },
+    {
+      "id": "api-heavy-insight",
+      "content": "Your API spend suggests custom integration work. API-heavy teams typically spend {{benchmarkAmount}}/developer on infrastructure.",
+      "trigger": {
+        "type": "tool-added",
+        "conditions": [
+          { "type": "tool", "toolId": "openai-api" }
+        ]
+      },
+      "priority": 7,
+      "category": "insight",
+      "factBased": true
+    },
+    {
+      "id": "small-team-insight",
+      "content": "Small teams like yours ({{teamSize}} members) typically use {{medianTools}} tools. You're building efficiently.",
+      "trigger": {
+        "type": "team-size",
+        "conditions": [
+          { "type": "team-size-range", "min": 1, "max": 5 }
+        ]
+      },
+      "priority": 6,
+      "category": "insight",
+      "factBased": true
+    },
+    {
+      "id": "medium-team-insight",
+      "content": "Teams your size ({{teamSize}} members) often benefit from standardizing on fewer tools to reduce complexity.",
+      "trigger": {
+        "type": "team-size",
+        "conditions": [
+          { "type": "team-size-range", "min": 11, "max": 50 }
+        ]
+      },
+      "priority": 6,
+      "category": "tip",
+      "factBased": true
+    },
+    {
+      "id": "chatgpt-popular",
+      "content": "{{toolName}} is the most widely adopted AI assistant, used by {{percentage}}% of AI-powered teams.",
+      "trigger": {
+        "type": "tool-added",
+        "conditions": [
+          { "type": "tool", "toolId": "chatgpt" }
+        ]
+      },
+      "priority": 5,
+      "category": "insight",
+      "factBased": true
+    },
+    {
+      "id": "multiple-chat-assistants",
+      "content": "You're using multiple chat assistants. Many teams consolidate to one primary assistant to optimize spend.",
+      "trigger": {
+        "type": "overlap",
+        "conditions": [
+          { "type": "has-overlap", "category": "chat-assistant" }
+        ]
+      },
+      "priority": 8,
+        "category": "tip",
+      "factBased": true
+    },
+    {
+      "id": "design-tool-insight",
+      "content": "{{toolName}} is gaining traction for AI-assisted design. {{percentage}}% of teams with design workflows use this tool.",
+      "trigger": {
+        "type": "tool-added",
+        "conditions": [
+          { "type": "tool", "toolId": "v0" }
+        ]
+      },
+      "priority": 6,
+      "category": "insight",
+      "factBased": true
+    },
+    {
+      "id": "welcome-message",
+      "content": "Let's analyze your AI infrastructure. This typically takes 90 seconds and uncovers an average of ${{avgSavings}}/month in optimization opportunities.",
+      "trigger": {
+        "type": "screen",
+        "conditions": [
+          { "type": "screen", "value": "welcome" }
+        ]
+      },
+      "priority": 10,
+      "category": "insight",
+      "factBased": true
+    }
+  ]
+}
