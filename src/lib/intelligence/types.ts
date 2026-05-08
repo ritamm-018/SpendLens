@@ -170,6 +170,7 @@ export interface EnhancedAuditResult extends AuditResult {
   intelligenceVersion: string;
   processingTime: number;
   teamSize: number; // From input, needed for UI components
+  aiSummary?: string; // AI-generated summary (optional)
 }
 
 /**

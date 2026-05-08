@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { EnhancedAuditResult } from '@/lib/intelligence/types';
 import { ResultsHero } from '@/components/results/results-hero';
+import { AISummary } from '@/components/results/ai-summary';
 import { BenchmarkSection } from '@/components/results/benchmark-section';
 import { ProfileBadge } from '@/components/results/profile-badge';
 import { CategoryChart } from '@/components/results/category-chart';
@@ -86,6 +87,14 @@ export default function ResultsPage() {
       <div className="min-h-screen bg-gradient-to-b from-white to-zinc-50 dark:from-zinc-950 dark:to-zinc-900">
         <div className="mx-auto max-w-6xl px-6 py-12">
           <ResultsHero result={result} />
+          
+          {/* AI Summary */}
+          {result.aiSummary && (
+            <div className="mt-8">
+              <AISummary summary={result.aiSummary} />
+            </div>
+          )}
+          
           <BenchmarkSection 
             comparisons={result.benchmarkComparisons} 
             teamSize={result.teamSize} 
