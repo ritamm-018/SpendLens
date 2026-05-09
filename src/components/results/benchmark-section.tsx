@@ -8,9 +8,10 @@ import { formatCurrency, formatPercentage } from '@/lib/utils';
 interface BenchmarkSectionProps {
   comparisons: BenchmarkComparison[];
   teamSize: number;
+  currency?: string;
 }
 
-export function BenchmarkSection({ comparisons, teamSize }: BenchmarkSectionProps) {
+export function BenchmarkSection({ comparisons, teamSize, currency = 'USD' }: BenchmarkSectionProps) {
   if (!comparisons || comparisons.length === 0) {
     return null;
   }
@@ -18,9 +19,9 @@ export function BenchmarkSection({ comparisons, teamSize }: BenchmarkSectionProp
   const getSentimentIcon = (sentiment: string) => {
     switch (sentiment) {
       case 'positive':
-        return <TrendingUp className="h-5 w-5 text-green-600 dark:text-green-400" />;
+        return <TrendingUp className="h-5 w-5 text-green-400" />;
       case 'negative':
-        return <TrendingDown className="h-5 w-5 text-orange-600 dark:text-orange-400" />;
+        return <TrendingDown className="h-5 w-5 text-orange-400" />;
       default:
         return <Minus className="h-5 w-5 text-zinc-400" />;
     }
@@ -29,11 +30,11 @@ export function BenchmarkSection({ comparisons, teamSize }: BenchmarkSectionProp
   const getSentimentColor = (sentiment: string) => {
     switch (sentiment) {
       case 'positive':
-        return 'border-green-200 bg-green-50 dark:border-green-900 dark:bg-green-950/30';
+        return 'border-green-900 bg-green-950/30';
       case 'negative':
-        return 'border-orange-200 bg-orange-50 dark:border-orange-900 dark:bg-orange-950/30';
+        return 'border-orange-900 bg-orange-950/30';
       default:
-        return 'border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900/30';
+        return 'border-zinc-800 bg-zinc-900/30';
     }
   };
 
@@ -45,10 +46,10 @@ export function BenchmarkSection({ comparisons, teamSize }: BenchmarkSectionProp
       className="mb-12"
     >
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
+        <h2 className="text-2xl font-bold text-zinc-50">
           Benchmark Analysis
         </h2>
-        <p className="mt-2 text-zinc-600 dark:text-zinc-400">
+        <p className="mt-2 text-zinc-400">
           How your AI infrastructure compares to similar teams
         </p>
       </div>
@@ -67,42 +68,42 @@ export function BenchmarkSection({ comparisons, teamSize }: BenchmarkSectionProp
               
               <div className="flex-1">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-semibold text-zinc-900 dark:text-zinc-50">
+                  <h3 className="font-semibold text-zinc-50">
                     {comparison.type}
                   </h3>
                   <div className="text-right">
-                    <div className="text-sm text-zinc-600 dark:text-zinc-400">
+                    <div className="text-sm text-zinc-400">
                       Percentile
                     </div>
-                    <div className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
+                    <div className="text-2xl font-bold text-zinc-50">
                       {Math.round(comparison.percentile)}
                     </div>
                   </div>
                 </div>
 
-                <p className="mt-3 text-zinc-700 dark:text-zinc-300">
+                <p className="mt-3 text-zinc-300">
                   {comparison.statement}
                 </p>
 
                 <div className="mt-4 grid grid-cols-2 gap-4">
-                  <div className="rounded-lg bg-white/50 p-3 dark:bg-zinc-900/50">
-                    <div className="text-xs text-zinc-600 dark:text-zinc-400">
+                  <div className="rounded-lg bg-zinc-900/50 p-3">
+                    <div className="text-xs text-zinc-400">
                       Your Value
                     </div>
-                    <div className="mt-1 text-lg font-semibold text-zinc-900 dark:text-zinc-50">
+                    <div className="mt-1 text-lg font-semibold text-zinc-50">
                       {comparison.type.includes('Spend') || comparison.type.includes('Cost')
-                        ? formatCurrency(comparison.userValue)
+                        ? formatCurrency(comparison.userValue, currency)
                         : comparison.userValue.toFixed(1)}
                     </div>
                   </div>
 
-                  <div className="rounded-lg bg-white/50 p-3 dark:bg-zinc-900/50">
-                    <div className="text-xs text-zinc-600 dark:text-zinc-400">
+                  <div className="rounded-lg bg-zinc-900/50 p-3">
+                    <div className="text-xs text-zinc-400">
                       Benchmark (Median)
                     </div>
-                    <div className="mt-1 text-lg font-semibold text-zinc-900 dark:text-zinc-50">
+                    <div className="mt-1 text-lg font-semibold text-zinc-50">
                       {comparison.type.includes('Spend') || comparison.type.includes('Cost')
-                        ? formatCurrency(comparison.benchmarkValue)
+                        ? formatCurrency(comparison.benchmarkValue, currency)
                         : comparison.benchmarkValue.toFixed(1)}
                     </div>
                   </div>
@@ -110,13 +111,13 @@ export function BenchmarkSection({ comparisons, teamSize }: BenchmarkSectionProp
 
                 {/* Visual comparison bar */}
                 <div className="mt-4">
-                  <div className="relative h-3 overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-800">
+                  <div className="relative h-3 overflow-hidden rounded-full bg-zinc-800">
                     <div
                       className="absolute h-full bg-gradient-to-r from-blue-500 to-cyan-500"
                       style={{ width: `${Math.min(comparison.percentile, 100)}%` }}
                     />
                   </div>
-                  <div className="mt-2 flex justify-between text-xs text-zinc-500 dark:text-zinc-400">
+                  <div className="mt-2 flex justify-between text-xs text-zinc-400">
                     <span>Bottom 0%</span>
                     <span>Top 100%</span>
                   </div>
@@ -127,9 +128,9 @@ export function BenchmarkSection({ comparisons, teamSize }: BenchmarkSectionProp
         ))}
       </div>
 
-      <div className="mt-6 rounded-lg border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-900/50">
-        <p className="text-sm text-zinc-600 dark:text-zinc-400">
-          <span className="font-semibold text-zinc-900 dark:text-zinc-50">
+      <div className="mt-6 rounded-lg border border-zinc-800 bg-zinc-900/50 p-4">
+        <p className="text-sm text-zinc-400">
+          <span className="font-semibold text-zinc-50">
             Benchmark data updated weekly
           </span>
           {' • '}

@@ -9,6 +9,7 @@ import { AlertCircle, CheckCircle2, Info } from 'lucide-react';
 interface CategoryChartProps {
   categoryBreakdown: CategoryBreakdown;
   teamSize: number;
+  currency?: string;
 }
 
 const CATEGORY_COLORS = {
@@ -20,7 +21,7 @@ const CATEGORY_COLORS = {
   'other': '#6b7280', // gray
 };
 
-export function CategoryChart({ categoryBreakdown, teamSize }: CategoryChartProps) {
+export function CategoryChart({ categoryBreakdown, teamSize, currency = 'USD' }: CategoryChartProps) {
   if (!categoryBreakdown || categoryBreakdown.categories.length === 0) {
     return null;
   }
@@ -36,22 +37,22 @@ export function CategoryChart({ categoryBreakdown, teamSize }: CategoryChartProp
   const getInsightIcon = (type: string) => {
     switch (type) {
       case 'over-indexed':
-        return <AlertCircle className="h-4 w-4 text-orange-600 dark:text-orange-400" />;
+        return <AlertCircle className="h-4 w-4 text-orange-400" />;
       case 'under-indexed':
-        return <Info className="h-4 w-4 text-blue-600 dark:text-blue-400" />;
+        return <Info className="h-4 w-4 text-blue-400" />;
       default:
-        return <CheckCircle2 className="h-4 w-4 text-green-600 dark:text-green-400" />;
+        return <CheckCircle2 className="h-4 w-4 text-green-400" />;
     }
   };
 
   const getInsightColor = (type: string) => {
     switch (type) {
       case 'over-indexed':
-        return 'border-orange-200 bg-orange-50 dark:border-orange-900 dark:bg-orange-950/30';
+        return 'border-orange-900 bg-orange-950/30';
       case 'under-indexed':
-        return 'border-blue-200 bg-blue-50 dark:border-blue-900 dark:bg-blue-950/30';
+        return 'border-blue-900 bg-blue-950/30';
       default:
-        return 'border-green-200 bg-green-50 dark:border-green-900 dark:bg-green-950/30';
+        return 'border-green-900 bg-green-950/30';
     }
   };
 
@@ -63,18 +64,18 @@ export function CategoryChart({ categoryBreakdown, teamSize }: CategoryChartProp
       className="mb-12"
     >
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
+        <h2 className="text-2xl font-bold text-zinc-50">
           Category Analysis
         </h2>
-        <p className="mt-2 text-zinc-600 dark:text-zinc-400">
+        <p className="mt-2 text-zinc-400">
           How your AI spend is distributed across categories
         </p>
       </div>
 
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
         {/* Pie Chart */}
-        <div className="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
-          <h3 className="mb-4 font-semibold text-zinc-900 dark:text-zinc-50">
+        <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
+          <h3 className="mb-4 font-semibold text-zinc-50">
             Spend Distribution
           </h3>
           <ResponsiveContainer width="100%" height={300}>
@@ -94,7 +95,7 @@ export function CategoryChart({ categoryBreakdown, teamSize }: CategoryChartProp
                 ))}
               </Pie>
               <Tooltip
-                formatter={(value) => formatCurrency(Number(value) || 0)}
+                formatter={(value) => formatCurrency(Number(value) || 0, currency)}
                 contentStyle={{
                   backgroundColor: 'rgba(0, 0, 0, 0.8)',
                   border: 'none',
@@ -107,15 +108,15 @@ export function CategoryChart({ categoryBreakdown, teamSize }: CategoryChartProp
         </div>
 
         {/* Category Breakdown Table */}
-        <div className="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
-          <h3 className="mb-4 font-semibold text-zinc-900 dark:text-zinc-50">
+        <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
+          <h3 className="mb-4 font-semibold text-zinc-50">
             Category Details
           </h3>
           <div className="space-y-4">
             {categoryBreakdown.categories.map((category, index) => (
               <div
                 key={index}
-                className="rounded-lg border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-900/50"
+                className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-4"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
@@ -128,43 +129,43 @@ export function CategoryChart({ categoryBreakdown, teamSize }: CategoryChartProp
                       }}
                     />
                     <div>
-                      <div className="font-medium text-zinc-900 dark:text-zinc-50">
+                      <div className="font-medium text-zinc-50">
                         {category.displayName}
                       </div>
-                      <div className="text-sm text-zinc-600 dark:text-zinc-400">
+                      <div className="text-sm text-zinc-400">
                         {category.tools.length} tool{category.tools.length !== 1 ? 's' : ''}
                       </div>
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="font-semibold text-zinc-900 dark:text-zinc-50">
-                      {formatCurrency(category.totalSpend)}
+                    <div className="font-semibold text-zinc-50">
+                      {formatCurrency(category.totalSpend, currency)}
                     </div>
-                    <div className="text-sm text-zinc-600 dark:text-zinc-400">
+                    <div className="text-sm text-zinc-400">
                       {formatPercentage(category.percentage / 100)}
                     </div>
                   </div>
                 </div>
 
                 {/* Spend per team member */}
-                <div className="mt-3 flex items-center justify-between rounded-md bg-white/50 px-3 py-2 dark:bg-zinc-950/50">
-                  <span className="text-sm text-zinc-600 dark:text-zinc-400">
+                <div className="mt-3 flex items-center justify-between rounded-md bg-zinc-950/50 px-3 py-2">
+                  <span className="text-sm text-zinc-400">
                     Per team member
                   </span>
-                  <span className="text-sm font-medium text-zinc-900 dark:text-zinc-50">
-                    {formatCurrency(category.spendPerTeamMember)}/mo
+                  <span className="text-sm font-medium text-zinc-50">
+                    {formatCurrency(category.spendPerTeamMember, currency)}/mo
                   </span>
                 </div>
 
                 {/* Benchmark comparison if available */}
                 {category.benchmarkComparison && (
-                  <div className="mt-2 text-xs text-zinc-600 dark:text-zinc-400">
+                  <div className="mt-2 text-xs text-zinc-400">
                     {category.benchmarkComparison.deviation > 0 ? (
-                      <span className="text-orange-600 dark:text-orange-400">
+                      <span className="text-orange-400">
                         {Math.abs(category.benchmarkComparison.deviation).toFixed(0)}% above benchmark
                       </span>
                     ) : category.benchmarkComparison.deviation < 0 ? (
-                      <span className="text-green-600 dark:text-green-400">
+                      <span className="text-green-400">
                         {Math.abs(category.benchmarkComparison.deviation).toFixed(0)}% below benchmark
                       </span>
                     ) : (
@@ -181,7 +182,7 @@ export function CategoryChart({ categoryBreakdown, teamSize }: CategoryChartProp
       {/* Category Insights */}
       {categoryBreakdown.insights && categoryBreakdown.insights.length > 0 && (
         <div className="mt-8 space-y-3">
-          <h3 className="font-semibold text-zinc-900 dark:text-zinc-50">
+          <h3 className="font-semibold text-zinc-50">
             Category Insights
           </h3>
           {categoryBreakdown.insights.map((insight, index) => (
@@ -194,10 +195,10 @@ export function CategoryChart({ categoryBreakdown, teamSize }: CategoryChartProp
             >
               {getInsightIcon(insight.type)}
               <div className="flex-1">
-                <div className="font-medium text-zinc-900 dark:text-zinc-50">
+                <div className="font-medium text-zinc-50">
                   {insight.category}
                 </div>
-                <p className="mt-1 text-sm text-zinc-700 dark:text-zinc-300">
+                <p className="mt-1 text-sm text-zinc-300">
                   {insight.message}
                 </p>
               </div>

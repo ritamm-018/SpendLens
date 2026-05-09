@@ -23,15 +23,15 @@ export function ShareSection({ result }: ShareSectionProps) {
         transition={{ delay: 0.7 }}
         className="mb-12"
       >
-        <Card className="border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900/50">
+        <Card className="border border-zinc-800 bg-zinc-900/50">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Share2 className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+              <Share2 className="h-5 w-5 text-blue-400" />
               Share Your Efficiency Score
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="mb-4 text-sm text-zinc-700 dark:text-zinc-300">
+            <p className="mb-4 text-sm text-zinc-300">
               Share your AI Infrastructure Intelligence Report with your team or on social media.
               Show off your efficiency score and operating profile.
             </p>
@@ -39,21 +39,21 @@ export function ShareSection({ result }: ShareSectionProps) {
               <Button
                 onClick={() => setIsModalOpen(true)}
                 size="lg"
-                className="group bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
+                className="group bg-zinc-50 text-zinc-900 hover:bg-zinc-200"
               >
                 <Share2 className="h-4 w-4 mr-2" />
                 Share My Results
               </Button>
-              <div className="flex items-center gap-2 text-xs text-zinc-600 dark:text-zinc-400">
-                <span className="flex items-center gap-1.5 rounded-full bg-white/50 px-3 py-1 dark:bg-zinc-900/50">
+              <div className="flex items-center gap-2 text-xs text-zinc-400">
+                <span className="flex items-center gap-1.5 rounded-full bg-zinc-900/50 px-3 py-1">
                   <Target className="h-3 w-3" />
                   Efficiency Score
                 </span>
-                <span className="flex items-center gap-1.5 rounded-full bg-white/50 px-3 py-1 dark:bg-zinc-900/50">
+                <span className="flex items-center gap-1.5 rounded-full bg-zinc-900/50 px-3 py-1">
                   <User className="h-3 w-3" />
                   Profile
                 </span>
-                <span className="flex items-center gap-1.5 rounded-full bg-white/50 px-3 py-1 dark:bg-zinc-900/50">
+                <span className="flex items-center gap-1.5 rounded-full bg-zinc-900/50 px-3 py-1">
                   <TrendingDown className="h-3 w-3" />
                   Savings
                 </span>

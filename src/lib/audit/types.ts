@@ -72,6 +72,7 @@ export interface AuditInput {
   tools: ToolInput[];
   teamSize: number;
   primaryUseCase: UseCase;
+  currency?: string; // ISO 4217 currency code (e.g., 'USD', 'EUR', 'INR')
 }
 
 // ─── Audit Context (derived from input) ─────
@@ -123,6 +124,7 @@ export interface AuditResult {
   overallSeverity: Severity;
   generatedAt: string;
   aiSummary?: string;
+  currency?: string; // Currency used for all monetary values
 }
 
 // ─── Database / Share ───────────────────────

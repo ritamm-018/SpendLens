@@ -12,18 +12,20 @@ const mockData = {
   savingsPercentage: 40,
   toolCount: 4,
   teamSize: 12,
+  currency: 'USD',
 };
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
   // In production, fetch from database
   const data = mockData;
+  const currency = data.currency || 'USD';
   
   return {
-    title: `AI Spend Audit Results - ${formatCurrency(data.totalAnnualSavings)}/year in savings`,
-    description: `This startup could save ${formatCurrency(data.totalMonthlySavings)}/month on their AI stack. Run your own free audit with SpendLens.`,
+    title: `AI Spend Audit Results - ${formatCurrency(data.totalAnnualSavings, currency)}/year in savings`,
+    description: `This startup could save ${formatCurrency(data.totalMonthlySavings, currency)}/month on their AI stack. Run your own free audit with SpendLens.`,
     openGraph: {
-      title: `${formatCurrency(data.totalAnnualSavings)}/year in AI Spend Savings Found`,
-      description: `SpendLens found ${formatCurrency(data.totalMonthlySavings)}/month in optimization opportunities across ${data.toolCount} AI tools.`,
+      title: `${formatCurrency(data.totalAnnualSavings, currency)}/year in AI Spend Savings Found`,
+      description: `SpendLens found ${formatCurrency(data.totalMonthlySavings, currency)}/month in optimization opportunities across ${data.toolCount} AI tools.`,
       images: [
         {
           url: '/og-image.png', // TODO: Generate dynamic OG image
@@ -34,21 +36,22 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${formatCurrency(data.totalAnnualSavings)}/year in AI Spend Savings`,
-      description: `Found ${formatCurrency(data.totalMonthlySavings)}/month in savings. Audit your AI stack for free.`,
+      title: `${formatCurrency(data.totalAnnualSavings, currency)}/year in AI Spend Savings`,
+      description: `Found ${formatCurrency(data.totalMonthlySavings, currency)}/month in savings. Audit your AI stack for free.`,
     },
   };
 }
 
 export default function SharePage({ params }: { params: { id: string } }) {
   const data = mockData;
+  const currency = data.currency || 'USD';
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-zinc-50 dark:from-zinc-950 dark:to-zinc-900">
       <div className="mx-auto max-w-4xl px-6 py-24">
         <div className="text-center">
           <h1 className="text-5xl font-bold text-zinc-900 dark:text-zinc-50">
-            {formatCurrency(data.totalAnnualSavings)}
+            {formatCurrency(data.totalAnnualSavings, currency)}
             <span className="text-zinc-500">/year</span>
           </h1>
           <p className="mt-4 text-xl text-zinc-600 dark:text-zinc-400">
@@ -58,7 +61,7 @@ export default function SharePage({ params }: { params: { id: string } }) {
           <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3">
             <div className="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
               <div className="text-3xl font-bold text-zinc-900 dark:text-zinc-50">
-                {formatCurrency(data.totalMonthlySavings)}
+                {formatCurrency(data.totalMonthlySavings, currency)}
               </div>
               <div className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">Monthly Savings</div>
             </div>

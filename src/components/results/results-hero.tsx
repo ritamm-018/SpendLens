@@ -12,18 +12,19 @@ interface ResultsHeroProps {
 export function ResultsHero({ result }: ResultsHeroProps) {
   const efficiencyScore = result.efficiencyScore;
   const profile = result.operatingProfile;
+  const currency = result.currency || 'USD';
 
   // Get score color based on value - professional palette
   const getScoreColor = (score: number) => {
-    if (score >= 80) return 'text-emerald-600 dark:text-emerald-400';
-    if (score >= 60) return 'text-amber-600 dark:text-amber-400';
-    return 'text-rose-600 dark:text-rose-400';
+    if (score >= 80) return 'text-emerald-400';
+    if (score >= 60) return 'text-amber-400';
+    return 'text-rose-400';
   };
 
   const getScoreBorder = (score: number) => {
-    if (score >= 80) return 'border-emerald-200 dark:border-emerald-900/50';
-    if (score >= 60) return 'border-amber-200 dark:border-amber-900/50';
-    return 'border-rose-200 dark:border-rose-900/50';
+    if (score >= 80) return 'border-emerald-900/50';
+    if (score >= 60) return 'border-amber-900/50';
+    return 'border-rose-900/50';
   };
 
   return (
@@ -33,23 +34,23 @@ export function ResultsHero({ result }: ResultsHeroProps) {
       className="mb-12"
     >
       {/* Efficiency Score Hero - Professional Card */}
-      <div className={`rounded-lg border ${getScoreBorder(efficiencyScore.overall)} bg-white p-10 shadow-sm dark:bg-zinc-900`}>
+      <div className={`rounded-lg border ${getScoreBorder(efficiencyScore.overall)} bg-zinc-900 p-10 shadow-sm`}>
         <div className="flex items-start justify-between">
           <div>
-            <div className="mb-2 text-sm font-medium uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
+            <div className="mb-2 text-sm font-medium uppercase tracking-wide text-zinc-400">
               AI Infrastructure Efficiency
             </div>
             <div className="flex items-baseline gap-3">
               <div className={`text-7xl font-semibold tabular-nums ${getScoreColor(efficiencyScore.overall)}`}>
                 {efficiencyScore.overall}
               </div>
-              <div className="text-3xl font-normal text-zinc-400 dark:text-zinc-600">/100</div>
+              <div className="text-3xl font-normal text-zinc-600">/100</div>
             </div>
             <div className="mt-4 flex items-center gap-4">
-              <div className="rounded bg-zinc-100 px-3 py-1.5 text-sm font-medium text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
+              <div className="rounded bg-zinc-800 px-3 py-1.5 text-sm font-medium text-zinc-300">
                 {profile.profile.name}
               </div>
-              <div className="text-sm text-zinc-500 dark:text-zinc-400">
+              <div className="text-sm text-zinc-400">
                 {efficiencyScore.confidence === 'high' && 'High Confidence'}
                 {efficiencyScore.confidence === 'medium' && 'Medium Confidence'}
                 {efficiencyScore.confidence === 'low' && 'Low Confidence'}
@@ -57,10 +58,10 @@ export function ResultsHero({ result }: ResultsHeroProps) {
             </div>
           </div>
           <div className="text-right">
-            <div className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+            <div className="text-sm font-medium text-zinc-400">
               Analysis Date
             </div>
-            <div className="mt-1 text-sm text-zinc-900 dark:text-zinc-50">
+            <div className="mt-1 text-sm text-zinc-50">
               {new Date(result.generatedAt).toLocaleDateString('en-US', {
                 month: 'short',
                 day: 'numeric',
@@ -70,8 +71,8 @@ export function ResultsHero({ result }: ResultsHeroProps) {
           </div>
         </div>
         
-        <div className="mt-6 border-t border-zinc-200 pt-6 dark:border-zinc-800">
-          <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+        <div className="mt-6 border-t border-zinc-800 pt-6">
+          <p className="text-sm leading-relaxed text-zinc-400">
             {profile.profile.description}
           </p>
         </div>
@@ -83,8 +84,8 @@ export function ResultsHero({ result }: ResultsHeroProps) {
           {
             icon: TrendingDown,
             label: 'Potential Savings',
-            value: formatCurrency(result.totalMonthlySavings),
-            subtitle: `${formatCurrency(result.totalAnnualSavings)} annually`,
+            value: formatCurrency(result.totalMonthlySavings, currency),
+            subtitle: `${formatCurrency(result.totalAnnualSavings, currency)} annually`,
             change: result.savingsPercentage > 0 ? `${result.savingsPercentage.toFixed(1)}%` : null,
           },
           {
@@ -121,24 +122,24 @@ export function ResultsHero({ result }: ResultsHeroProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 + i * 0.05 }}
-            className="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900"
+            className="rounded-lg border border-zinc-800 bg-zinc-900 p-5 shadow-sm"
           >
             <div className="flex items-start justify-between">
-              <metric.icon className="h-5 w-5 text-zinc-400 dark:text-zinc-600" />
+              <metric.icon className="h-5 w-5 text-zinc-600" />
               {metric.change && (
-                <div className="rounded bg-emerald-50 px-2 py-0.5 text-xs font-medium text-emerald-700 dark:bg-emerald-900/20 dark:text-emerald-400">
+                <div className="rounded bg-emerald-900/20 px-2 py-0.5 text-xs font-medium text-emerald-400">
                   {metric.change}
                 </div>
               )}
             </div>
             <div className="mt-4">
-              <div className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+              <div className="text-sm font-medium text-zinc-400">
                 {metric.label}
               </div>
-              <div className="mt-1 text-2xl font-semibold tabular-nums text-zinc-900 dark:text-zinc-50">
+              <div className="mt-1 text-2xl font-semibold tabular-nums text-zinc-50">
                 {metric.value}
               </div>
-              <div className="mt-1 text-xs text-zinc-500 dark:text-zinc-500">
+              <div className="mt-1 text-xs text-zinc-500">
                 {metric.subtitle}
               </div>
             </div>
@@ -151,15 +152,15 @@ export function ResultsHero({ result }: ResultsHeroProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="mt-6 rounded-lg border border-zinc-200 bg-white shadow-sm dark:border-zinc-800 dark:bg-zinc-900"
+        className="mt-6 rounded-lg border border-zinc-800 bg-zinc-900 shadow-sm"
       >
-        <div className="border-b border-zinc-200 px-6 py-4 dark:border-zinc-800">
-          <h3 className="text-sm font-semibold uppercase tracking-wide text-zinc-900 dark:text-zinc-50">
+        <div className="border-b border-zinc-800 px-6 py-4">
+          <h3 className="text-sm font-semibold uppercase tracking-wide text-zinc-50">
             Score Components
           </h3>
         </div>
         
-        <div className="divide-y divide-zinc-200 dark:divide-zinc-800">
+        <div className="divide-y divide-zinc-800">
           {efficiencyScore.breakdown.map((component, i) => (
             <motion.div
               key={component.component}
@@ -170,21 +171,21 @@ export function ResultsHero({ result }: ResultsHeroProps) {
             >
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <div className="text-sm font-medium text-zinc-900 dark:text-zinc-50">
+                  <div className="text-sm font-medium text-zinc-50">
                     {component.description}
                   </div>
-                  <div className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
+                  <div className="mt-1 text-xs text-zinc-400">
                     Weight: {Math.round(component.weight * 100)}% • Contribution: {Math.round(component.contribution)} points
                   </div>
                 </div>
                 <div className="ml-4 text-right">
-                  <div className="text-lg font-semibold tabular-nums text-zinc-900 dark:text-zinc-50">
+                  <div className="text-lg font-semibold tabular-nums text-zinc-50">
                     {component.score}
                   </div>
-                  <div className="text-xs text-zinc-500 dark:text-zinc-400">/100</div>
+                  <div className="text-xs text-zinc-400">/100</div>
                 </div>
               </div>
-              <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-800">
+              <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-zinc-800">
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${component.score}%` }}

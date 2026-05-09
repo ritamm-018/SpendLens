@@ -28,7 +28,7 @@ export function HowItWorks() {
   ];
 
   return (
-    <section className="border-b border-zinc-200 bg-zinc-50 py-24 dark:border-zinc-800 dark:bg-zinc-900 sm:py-32">
+    <section className="border-b border-zinc-800 bg-zinc-900/50 py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -36,10 +36,10 @@ export function HowItWorks() {
           viewport={{ once: true }}
           className="mx-auto max-w-2xl text-center"
         >
-          <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl">
+          <h2 className="text-3xl font-bold tracking-tight text-zinc-50 sm:text-4xl">
             How It Works
           </h2>
-          <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
+          <p className="mt-4 text-lg text-zinc-400">
             Get your AI Infrastructure Intelligence Report in four simple steps
           </p>
         </motion.div>
@@ -55,20 +55,20 @@ export function HowItWorks() {
               className="relative"
             >
               <div className="flex flex-col items-center text-center">
-                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-zinc-200 dark:bg-zinc-950 dark:ring-zinc-800">
-                  <step.icon className="h-8 w-8 text-zinc-900 dark:text-zinc-50" />
+                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-zinc-900 border border-zinc-800 shadow-lg">
+                  <step.icon className="h-8 w-8 text-emerald-400" />
                 </div>
                 <div className="mt-6">
-                  <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
+                  <h3 className="text-lg font-semibold text-zinc-50">
                     {step.title}
                   </h3>
-                  <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+                  <p className="mt-2 text-sm text-zinc-400">
                     {step.description}
                   </p>
                 </div>
               </div>
               {i < steps.length - 1 && (
-                <div className="absolute right-0 top-8 hidden h-0.5 w-full bg-gradient-to-r from-zinc-200 to-transparent dark:from-zinc-800 lg:block" />
+                <div className="absolute right-0 top-8 hidden h-0.5 w-full bg-gradient-to-r from-zinc-800 to-transparent lg:block" />
               )}
             </motion.div>
           ))}

@@ -61,8 +61,9 @@ export default function ResultsPage() {
   }
 
   // Open Graph metadata
+  const currency = result.currency || 'USD';
   const ogTitle = `My AI Efficiency Score: ${result.efficiencyScore.overall}/100`;
-  const ogDescription = `${result.operatingProfile.profile.name} • ${formatCurrency(result.totalMonthlySavings)}/month in savings found • Analyzed ${result.toolResults.length} AI tools`;
+  const ogDescription = `${result.operatingProfile.profile.name} • ${formatCurrency(result.totalMonthlySavings, currency)}/month in savings found • Analyzed ${result.toolResults.length} AI tools`;
   const ogUrl = typeof window !== 'undefined' ? window.location.href : '';
 
   return (
@@ -97,12 +98,17 @@ export default function ResultsPage() {
           
           <BenchmarkSection 
             comparisons={result.benchmarkComparisons} 
-            teamSize={result.teamSize} 
+            teamSize={result.teamSize}
+            currency={currency}
           />
-          <ProfileBadge classification={result.operatingProfile} />
+          <ProfileBadge 
+            classification={result.operatingProfile}
+            currency={currency}
+          />
           <CategoryChart 
             categoryBreakdown={result.categoryBreakdown} 
-            teamSize={result.teamSize} 
+            teamSize={result.teamSize}
+            currency={currency}
           />
           <StrategicInsights insights={result.strategicInsights} />
           <ToolBreakdown result={result} />

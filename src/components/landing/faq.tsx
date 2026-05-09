@@ -36,7 +36,7 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="border-b border-zinc-200 bg-white py-24 dark:border-zinc-800 dark:bg-zinc-950 sm:py-32">
+    <section className="border-b border-zinc-800 bg-zinc-950 py-24 sm:py-32">
       <div className="mx-auto max-w-4xl px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -44,10 +44,10 @@ export function FAQ() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl">
+          <h2 className="text-3xl font-bold tracking-tight text-zinc-50 sm:text-4xl">
             Frequently Asked Questions
           </h2>
-          <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
+          <p className="mt-4 text-lg text-zinc-400">
             Everything you need to know about SpendLens
           </p>
         </motion.div>
@@ -60,13 +60,13 @@ export function FAQ() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
-              className="overflow-hidden rounded-xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900"
+              className="overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/50 backdrop-blur-sm"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                className="flex w-full items-center justify-between p-6 text-left transition-colors hover:bg-zinc-50 dark:hover:bg-zinc-800/50"
+                className="flex w-full items-center justify-between p-6 text-left transition-colors hover:bg-zinc-800/50"
               >
-                <span className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
+                <span className="text-lg font-semibold text-zinc-50">
                   {faq.question}
                 </span>
                 <ChevronDown
@@ -77,8 +77,8 @@ export function FAQ() {
                 />
               </button>
               {openIndex === i && (
-                <div className="border-t border-zinc-200 px-6 py-4 dark:border-zinc-800">
-                  <p className="text-zinc-600 dark:text-zinc-400">{faq.answer}</p>
+                <div className="border-t border-zinc-800 px-6 py-4">
+                  <p className="text-zinc-400">{faq.answer}</p>
                 </div>
               )}
             </motion.div>

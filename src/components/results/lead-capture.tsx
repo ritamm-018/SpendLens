@@ -60,14 +60,14 @@ export function LeadCapture({ reportId, totalSavings }: LeadCaptureProps) {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
       >
-        <Card className="border-green-200 bg-green-50 dark:border-green-900 dark:bg-green-950/30">
+        <Card className="border-green-900 bg-green-950/30">
           <CardContent className="flex items-center gap-4 p-8">
-            <CheckCircle2 className="h-12 w-12 text-green-600 dark:text-green-400" />
+            <CheckCircle2 className="h-12 w-12 text-green-400" />
             <div>
-              <h3 className="text-xl font-semibold text-green-900 dark:text-green-100">
+              <h3 className="text-xl font-semibold text-green-100">
                 Report Sent!
               </h3>
-              <p className="mt-1 text-green-700 dark:text-green-300">
+              <p className="mt-1 text-green-300">
                 Check your email for your full audit report and next steps.
               </p>
             </div>
@@ -92,7 +92,7 @@ export function LeadCapture({ reportId, totalSavings }: LeadCaptureProps) {
           <CardDescription>
             Receive a detailed PDF report and personalized recommendations via email.
             {totalSavings > 500 && (
-              <span className="mt-2 block font-medium text-zinc-900 dark:text-zinc-50">
+              <span className="mt-2 block font-medium text-zinc-50">
                 With ${totalSavings}/mo in potential savings, you may qualify for Credex infrastructure credits.
               </span>
             )}
@@ -148,7 +148,7 @@ export function LeadCapture({ reportId, totalSavings }: LeadCaptureProps) {
               )}
             </Button>
 
-            <p className="text-xs text-zinc-500 dark:text-zinc-500">
+            <p className="text-xs text-zinc-500">
               We'll never spam you or share your email. Unsubscribe anytime.
             </p>
           </form>

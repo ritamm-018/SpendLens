@@ -25,6 +25,7 @@ export const auditInputSchema = z.object({
   tools: z.array(toolInputSchema).min(1, 'Add at least one tool').max(20, 'Maximum 20 tools allowed'),
   teamSize: z.number().int().min(1, 'Team size must be at least 1').max(10000, 'Team size seems unrealistic'),
   primaryUseCase: z.enum(['coding', 'research', 'chat', 'api-integration', 'design', 'mixed']),
+  currency: z.string().min(3).max(3), // ISO 4217 currency code
 });
 
 export const leadCaptureSchema = z.object({

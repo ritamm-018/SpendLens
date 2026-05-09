@@ -7,9 +7,10 @@ import { formatCurrency } from '@/lib/utils';
 
 interface ProfileBadgeProps {
   classification: ProfileClassification;
+  currency?: string;
 }
 
-export function ProfileBadge({ classification }: ProfileBadgeProps) {
+export function ProfileBadge({ classification, currency = 'USD' }: ProfileBadgeProps) {
   const { profile, confidence, alternativeProfiles } = classification;
 
   return (
@@ -20,10 +21,10 @@ export function ProfileBadge({ classification }: ProfileBadgeProps) {
       className="mb-12"
     >
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
+        <h2 className="text-2xl font-bold text-zinc-50">
           Your Operating Profile
         </h2>
-        <p className="mt-2 text-zinc-600 dark:text-zinc-400">
+        <p className="mt-2 text-zinc-400">
           How we classify your AI infrastructure approach
         </p>
       </div>
@@ -38,7 +39,7 @@ export function ProfileBadge({ classification }: ProfileBadgeProps) {
       >
         <div className="flex items-start gap-6">
           {/* Icon */}
-          <div className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-2xl bg-white/90 text-5xl shadow-lg dark:bg-zinc-900/90">
+          <div className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-2xl bg-zinc-900/90 text-5xl shadow-lg">
             {profile.badge.icon}
           </div>
 
@@ -83,7 +84,7 @@ export function ProfileBadge({ classification }: ProfileBadgeProps) {
                 Typical Spend Range for this Profile:
               </div>
               <div className="mt-2 text-2xl font-bold text-white">
-                {formatCurrency(profile.typicalSpendRange.min)} - {formatCurrency(profile.typicalSpendRange.max)}
+                {formatCurrency(profile.typicalSpendRange.min, currency)} - {formatCurrency(profile.typicalSpendRange.max, currency)}
                 <span className="text-base font-normal text-white/70">/month</span>
               </div>
             </div>
@@ -94,7 +95,7 @@ export function ProfileBadge({ classification }: ProfileBadgeProps) {
       {/* Alternative Profiles */}
       {alternativeProfiles && alternativeProfiles.length > 0 && (
         <div className="mt-6">
-          <div className="mb-3 text-sm font-semibold text-zinc-700 dark:text-zinc-300">
+          <div className="mb-3 text-sm font-semibold text-zinc-300">
             You also show traits of:
           </div>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -104,14 +105,14 @@ export function ProfileBadge({ classification }: ProfileBadgeProps) {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.6 + i * 0.1 }}
-                className="flex items-center gap-3 rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900"
+                className="flex items-center gap-3 rounded-lg border border-zinc-800 bg-zinc-900 p-4"
               >
                 <div className="text-3xl">{alt.profile.badge.icon}</div>
                 <div className="flex-1">
-                  <div className="font-semibold text-zinc-900 dark:text-zinc-50">
+                  <div className="font-semibold text-zinc-50">
                     {alt.profile.name}
                   </div>
-                  <div className="text-sm text-zinc-600 dark:text-zinc-400">
+                  <div className="text-sm text-zinc-400">
                     {Math.round(alt.score * 100)}% match
                   </div>
                 </div>

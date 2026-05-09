@@ -16,13 +16,17 @@ export default function BenchmarkPage() {
   const [monthlySpend, setMonthlySpend] = useState('');
 
   const handleQuickBenchmark = () => {
-    // For now, redirect to audit with pre-filled context
-    // In a real implementation, this would show instant benchmark results
-    router.push('/audit');
+    // Redirect to benchmark results with query params
+    const params = new URLSearchParams({
+      teamSize,
+      useCase,
+      monthlySpend,
+    });
+    router.push(`/benchmark/results?${params.toString()}`);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-zinc-50 dark:from-zinc-950 dark:to-zinc-900">
+    <div className="min-h-screen bg-gradient-to-b from-zinc-950 to-zinc-900">
       <div className="mx-auto max-w-4xl px-6 py-16">
         {/* Header */}
         <motion.div
@@ -30,14 +34,14 @@ export default function BenchmarkPage() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center"
         >
-          <div className="mb-4 inline-flex items-center gap-2 rounded border border-emerald-200 bg-emerald-50 px-4 py-1.5 text-xs font-medium uppercase tracking-wide text-emerald-700 dark:border-emerald-900 dark:bg-emerald-950 dark:text-emerald-400">
+          <div className="mb-4 inline-flex items-center gap-2 rounded border border-emerald-900 bg-emerald-950 px-4 py-1.5 text-xs font-medium uppercase tracking-wide text-emerald-400">
             <TrendingUp className="h-3 w-3" />
             Quick Benchmark
           </div>
-          <h1 className="mt-6 text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
+          <h1 className="mt-6 text-4xl font-semibold tracking-tight text-zinc-50 sm:text-5xl">
             See How You Compare
           </h1>
-          <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
+          <p className="mt-4 text-lg text-zinc-400">
             Get instant benchmark insights without a full audit. Takes 30 seconds.
           </p>
         </motion.div>
@@ -135,7 +139,7 @@ export default function BenchmarkPage() {
           transition={{ delay: 0.2 }}
           className="mt-12"
         >
-          <h2 className="text-center text-sm font-medium uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
+          <h2 className="text-center text-sm font-medium uppercase tracking-wide text-zinc-400">
             What You'll Get
           </h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-3">
@@ -154,10 +158,10 @@ export default function BenchmarkPage() {
               },
             ].map((item, i) => (
               <Card key={i} className="p-6 text-center">
-                <h3 className="font-semibold text-zinc-900 dark:text-zinc-50">
+                <h3 className="font-semibold text-zinc-50">
                   {item.title}
                 </h3>
-                <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+                <p className="mt-2 text-sm text-zinc-400">
                   {item.description}
                 </p>
               </Card>
@@ -172,7 +176,7 @@ export default function BenchmarkPage() {
           transition={{ delay: 0.3 }}
           className="mt-12 text-center"
         >
-          <p className="text-sm text-zinc-600 dark:text-zinc-400">
+          <p className="text-sm text-zinc-400">
             Want a detailed analysis with tool-by-tool recommendations?
           </p>
           <Button

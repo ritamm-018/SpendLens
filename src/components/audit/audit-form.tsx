@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { useForm, useFieldArray } from 'react-hook-form';
+import { useState, useEffect, Suspense } from 'react';
+import { useForm, useFieldArray, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { auditInputSchema, AuditInputFormData } from '@/lib/validation';
 import { Button } from '@/components/ui/button';
@@ -9,25 +9,76 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Plus, Trash2, Loader2 } from 'lucide-react';
+import { CurrencyInput } from '@/components/ui/currency-input';
+import { Plus, Trash2, Loader2, CheckCircle, Globe } from 'lucide-react';
 import { PRICING_DATA } from '@/lib/audit/pricing';
 import { ToolId } from '@/lib/audit/types';
+import { useSearchParams } from 'next/navigation';
+import { getDefaultCurrency } from '@/lib/currency/currencies';
 
 interface AuditFormProps {
   onSubmit: (data: AuditInputFormData) => void;
   isSubmitting: boolean;
 }
 
-export function AuditForm({ onSubmit, isSubmitting }: AuditFormProps) {
-  const {
-    register,
-    control,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<AuditInputFormData>({
-    resolver: zodResolver(auditInputSchema),
-    defaultValues: {
+function AuditFormInner({ onSubmit, isSubmitting }: AuditFormProps) {
+  const searchParams = useSearchParams();
+  const [prefilledFromScreenshot, setPrefilledFromScreenshot] = useState(false);
+  const [currency, setCurrency] = useState('USD');
+  const [showToolCountInput, setShowToolCountInput] = useState(false);
+  const [toolCount, setToolCount] = useState(1);
+
+  // Initialize currency from localStorage or browser locale
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('preferred-currency');
+      if (stored) {
+        setCurrency(stored);
+      } else {
+        const defaultCurrency = getDefaultCurrency();
+        setCurrency(defaultCurrency);
+      }
+    }
+  }, []);
+
+  // Save currency preference
+  const handleCurrencyChange = (newCurrency: string) => {
+    setCurrency(newCurrency);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('preferred-currency', newCurrency);
+    }
+  };
+
+  // Get default values (check for screenshot data)
+  const getDefaultValues = (): Partial<AuditInputFormData> => {
+    // Check if coming from screenshot upload
+    if (typeof window !== 'undefined' && searchParams?.get('prefilled') === 'screenshot') {
+      const screenshotData = sessionStorage.getItem('screenshot-data');
+      if (screenshotData) {
+        try {
+          const data = JSON.parse(screenshotData);
+          setPrefilledFromScreenshot(true);
+          
+          // Map screenshot data to form format
+          return {
+            tools: data.tools.map((tool: any) => ({
+              toolId: tool.name.toLowerCase().replace(/\s+/g, '-') as ToolId,
+              planId: '',
+              monthlySpend: tool.monthlySpend || 0,
+              seats: tool.seats || 1,
+            })),
+            teamSize: data.teamSize || 1,
+            primaryUseCase: 'coding',
+            currency: currency,
+          };
+        } catch (e) {
+          console.error('Failed to parse screenshot data:', e);
+        }
+      }
+    }
+
+    // Default values
+    return {
       tools: [
         {
           toolId: 'cursor' as ToolId,
@@ -38,8 +89,28 @@ export function AuditForm({ onSubmit, isSubmitting }: AuditFormProps) {
       ],
       teamSize: 1,
       primaryUseCase: 'coding',
-    },
+      currency: currency,
+    };
+  };
+
+  const {
+    register,
+    control,
+    handleSubmit,
+    watch,
+    formState: { errors },
+    reset,
+  } = useForm<AuditInputFormData>({
+    resolver: zodResolver(auditInputSchema),
+    defaultValues: getDefaultValues(),
   });
+
+  // Clear screenshot data after loading
+  useEffect(() => {
+    if (prefilledFromScreenshot && typeof window !== 'undefined') {
+      sessionStorage.removeItem('screenshot-data');
+    }
+  }, [prefilledFromScreenshot]);
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -50,31 +121,106 @@ export function AuditForm({ onSubmit, isSubmitting }: AuditFormProps) {
 
   const availableTools = Object.values(PRICING_DATA);
 
+  const handleFormSubmit = (data: AuditInputFormData) => {
+    // Ensure currency is included
+    const dataWithCurrency: AuditInputFormData = {
+      ...data,
+      currency: currency,
+    };
+    onSubmit(dataWithCurrency);
+  };
+
+  const handleAddTools = () => {
+    if (toolCount > 0 && toolCount <= 20) {
+      const toolsToAdd = toolCount - fields.length;
+      for (let i = 0; i < toolsToAdd; i++) {
+        append({
+          toolId: 'chatgpt' as ToolId,
+          planId: '',
+          monthlySpend: 0,
+          seats: 1,
+        });
+      }
+      setShowToolCountInput(false);
+      setToolCount(1);
+    }
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+    <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-8">
+      {/* Prefilled Notification */}
+      {prefilledFromScreenshot && (
+        <Card className="border-emerald-900/50 bg-emerald-950/20">
+          <CardContent className="pt-6">
+            <div className="flex items-start gap-3">
+              <CheckCircle className="h-5 w-5 flex-shrink-0 text-emerald-400 mt-0.5" />
+              <div>
+                <h3 className="font-semibold text-emerald-100">
+                  Data Loaded from Screenshot
+                </h3>
+                <p className="mt-1 text-sm text-emerald-300">
+                  We've pre-filled the form with data extracted from your screenshot. Please review and adjust as needed.
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Tools Section */}
       <div className="space-y-6">
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">
-            Your AI Tools
-          </h2>
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            onClick={() =>
-              append({
-                toolId: 'chatgpt' as ToolId,
-                planId: '',
-                monthlySpend: 0,
-                seats: 1,
-              })
-            }
-            disabled={fields.length >= 20}
-          >
-            <Plus className="h-4 w-4" />
-            Add Tool
-          </Button>
+          <div>
+            <h2 className="text-2xl font-semibold text-zinc-50">
+              Your AI Tools
+            </h2>
+            <p className="mt-1 text-sm text-zinc-400">
+              Add all your AI tool subscriptions below
+            </p>
+          </div>
+          
+          {!showToolCountInput ? (
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => setShowToolCountInput(true)}
+              disabled={fields.length >= 20}
+            >
+              <Plus className="h-4 w-4" />
+              Add Tools
+            </Button>
+          ) : (
+            <div className="flex items-center gap-2">
+              <Input
+                type="number"
+                min="1"
+                max="20"
+                value={toolCount}
+                onChange={(e) => setToolCount(Number(e.target.value))}
+                placeholder="Number of tools"
+                className="w-32"
+              />
+              <Button
+                type="button"
+                size="sm"
+                onClick={handleAddTools}
+              >
+                Add
+              </Button>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                onClick={() => {
+                  setShowToolCountInput(false);
+                  setToolCount(1);
+                }}
+              >
+                Cancel
+              </Button>
+            </div>
+          )}
         </div>
 
         {fields.map((field, index) => {
@@ -161,21 +307,23 @@ export function AuditForm({ onSubmit, isSubmitting }: AuditFormProps) {
                     )}
                   </div>
 
-                  {/* Monthly Spend */}
+                  {/* Monthly Spend with Currency */}
                   <div>
-                    <Label htmlFor={`tools.${index}.monthlySpend`}>Monthly Spend ($)</Label>
-                    <Input
-                      id={`tools.${index}.monthlySpend`}
-                      type="number"
-                      min="0"
-                      step="0.01"
-                      {...register(`tools.${index}.monthlySpend`, { valueAsNumber: true })}
+                    <Controller
+                      name={`tools.${index}.monthlySpend`}
+                      control={control}
+                      render={({ field }) => (
+                        <CurrencyInput
+                          value={field.value || 0}
+                          currency={currency}
+                          onValueChange={field.onChange}
+                          onCurrencyChange={handleCurrencyChange}
+                          label="Monthly Spend"
+                          placeholder="0.00"
+                          error={errors.tools?.[index]?.monthlySpend?.message}
+                        />
+                      )}
                     />
-                    {errors.tools?.[index]?.monthlySpend && (
-                      <p className="mt-1 text-sm text-red-600">
-                        {errors.tools[index]?.monthlySpend?.message}
-                      </p>
-                    )}
                   </div>
                 </div>
               </CardContent>
@@ -189,7 +337,7 @@ export function AuditForm({ onSubmit, isSubmitting }: AuditFormProps) {
       </div>
 
       {/* Team Info Section */}
-      <Card>
+      <Card className="relative z-0">
         <CardHeader>
           <CardTitle>Team Information</CardTitle>
         </CardHeader>
@@ -238,5 +386,21 @@ export function AuditForm({ onSubmit, isSubmitting }: AuditFormProps) {
         </Button>
       </div>
     </form>
+  );
+}
+
+
+// Wrapper with Suspense boundary
+export function AuditForm(props: AuditFormProps) {
+  return (
+    <Suspense fallback={
+      <Card className="p-8">
+        <div className="flex items-center justify-center">
+          <Loader2 className="h-8 w-8 animate-spin text-emerald-500" />
+        </div>
+      </Card>
+    }>
+      <AuditFormInner {...props} />
+    </Suspense>
   );
 }

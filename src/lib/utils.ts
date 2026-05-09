@@ -4,6 +4,7 @@
 
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { formatCurrencyAmount } from './currency/currencies';
 
 /**
  * Merge Tailwind classes with proper precedence
@@ -13,15 +14,10 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 /**
- * Format currency (USD)
+ * Format currency with multi-currency support
  */
-export function formatCurrency(amount: number): string {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(amount);
+export function formatCurrency(amount: number, currencyCode: string = 'USD'): string {
+  return formatCurrencyAmount(amount, currencyCode, { showSymbol: true, decimals: 0 });
 }
 
 /**
@@ -64,13 +60,13 @@ export function truncate(text: string, maxLength: number): string {
 export function getSeverityColor(severity: 'optimized' | 'minor' | 'moderate' | 'significant'): string {
   switch (severity) {
     case 'optimized':
-      return 'text-green-600 dark:text-green-400';
+      return 'text-green-400';
     case 'minor':
-      return 'text-blue-600 dark:text-blue-400';
+      return 'text-blue-400';
     case 'moderate':
-      return 'text-yellow-600 dark:text-yellow-400';
+      return 'text-yellow-400';
     case 'significant':
-      return 'text-red-600 dark:text-red-400';
+      return 'text-red-400';
   }
 }
 
@@ -80,12 +76,12 @@ export function getSeverityColor(severity: 'optimized' | 'minor' | 'moderate' | 
 export function getSeverityBadge(severity: 'optimized' | 'minor' | 'moderate' | 'significant'): string {
   switch (severity) {
     case 'optimized':
-      return 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300';
+      return 'bg-green-900/30 text-green-300';
     case 'minor':
-      return 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300';
+      return 'bg-blue-900/30 text-blue-300';
     case 'moderate':
-      return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300';
+      return 'bg-yellow-900/30 text-yellow-300';
     case 'significant':
-      return 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300';
+      return 'bg-red-900/30 text-red-300';
   }
 }

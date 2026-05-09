@@ -21,17 +21,17 @@ export function ProblemSolution() {
   ];
 
   return (
-    <section className="border-b border-zinc-200 bg-white py-24 dark:border-zinc-800 dark:bg-zinc-950 sm:py-32">
+    <section className="border-b border-zinc-800 bg-zinc-950 py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl"
+            className="text-3xl font-bold tracking-tight text-zinc-50 sm:text-4xl"
           >
             AI tools are expensive.{' '}
-            <span className="text-zinc-600 dark:text-zinc-400">Most teams overpay.</span>
+            <span className="text-zinc-400">Most teams overpay.</span>
           </motion.h2>
         </div>
 
@@ -44,17 +44,17 @@ export function ProblemSolution() {
             transition={{ delay: 0.2 }}
           >
             <div className="mb-6 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-100 dark:bg-red-900/30">
-                <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-rose-950/50 border border-rose-900/50">
+                <AlertCircle className="h-5 w-5 text-rose-400" />
               </div>
-              <h3 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">
+              <h3 className="text-xl font-semibold text-zinc-50">
                 Common Overspending Patterns
               </h3>
             </div>
             <ul className="space-y-3">
               {problems.map((problem, i) => (
-                <li key={i} className="flex items-start gap-3 text-zinc-600 dark:text-zinc-400">
-                  <TrendingDown className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-500" />
+                <li key={i} className="flex items-start gap-3 text-zinc-400">
+                  <TrendingDown className="mt-0.5 h-5 w-5 flex-shrink-0 text-rose-400" />
                   <span>{problem}</span>
                 </li>
               ))}
@@ -69,17 +69,17 @@ export function ProblemSolution() {
             transition={{ delay: 0.3 }}
           >
             <div className="mb-6 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-100 dark:bg-green-900/30">
-                <CheckCircle2 className="h-5 w-5 text-green-600 dark:text-green-400" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-950/50 border border-emerald-900/50">
+                <CheckCircle2 className="h-5 w-5 text-emerald-400" />
               </div>
-              <h3 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">
+              <h3 className="text-xl font-semibold text-zinc-50">
                 What SpendLens Finds
               </h3>
             </div>
             <ul className="space-y-3">
               {solutions.map((solution, i) => (
-                <li key={i} className="flex items-start gap-3 text-zinc-600 dark:text-zinc-400">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-500" />
+                <li key={i} className="flex items-start gap-3 text-zinc-400">
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-400" />
                   <span>{solution}</span>
                 </li>
               ))}

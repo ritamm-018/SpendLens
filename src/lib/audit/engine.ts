@@ -134,5 +134,6 @@ export function runAudit(input: AuditInput): AuditResult {
     savingsPercentage,
     overallSeverity,
     generatedAt: new Date().toISOString(),
+    currency: input.currency || 'USD', // Pass through currency
   };
 }

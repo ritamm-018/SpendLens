@@ -16,6 +16,7 @@ interface ShareModalProps {
 export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
   const [copied, setCopied] = useState(false);
   const [selectedCard, setSelectedCard] = useState<'efficiency' | 'savings' | 'profile'>('efficiency');
+  const currency = result.currency || 'USD';
 
   const shareUrl = typeof window !== 'undefined'
     ? `${window.location.origin}/results/${result.id}`
@@ -32,7 +33,7 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
       case 'efficiency':
         return `My AI Infrastructure Efficiency Score: ${result.efficiencyScore.overall}/100\n\nOperating Profile: ${result.operatingProfile.profile.name}\n\nAnalyze your AI stack efficiency:`;
       case 'savings':
-        return `I analyzed my AI infrastructure and found ${formatCurrency(result.totalMonthlySavings)}/month in optimization opportunities\n\nCheck your AI efficiency:`;
+        return `I analyzed my AI infrastructure and found ${formatCurrency(result.totalMonthlySavings, currency)}/month in optimization opportunities\n\nCheck your AI efficiency:`;
       case 'profile':
         return `My AI Operating Profile: ${result.operatingProfile.profile.name}\n\n${result.operatingProfile.profile.description}\n\nDiscover your profile:`;
       default:
@@ -69,16 +70,16 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="fixed left-1/2 top-1/2 z-50 w-full max-w-2xl -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-zinc-200 bg-white p-6 shadow-2xl dark:border-zinc-800 dark:bg-zinc-900"
+            className="fixed left-1/2 top-1/2 z-50 w-full max-w-2xl -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-zinc-800 bg-zinc-900 p-6 shadow-2xl"
           >
             {/* Header */}
             <div className="mb-6 flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
+              <h2 className="text-2xl font-bold text-zinc-50">
                 Share Your Results
               </h2>
               <button
                 onClick={onClose}
-                className="rounded-lg p-2 text-zinc-500 transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-50"
+                className="rounded-lg p-2 text-zinc-500 transition-colors hover:bg-zinc-800 hover:text-zinc-50"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -86,7 +87,7 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
 
             {/* Card Type Selection */}
             <div className="mb-6">
-              <div className="text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-3">
+              <div className="text-sm font-semibold text-zinc-300 mb-3">
                 Choose what to share:
               </div>
               <div className="grid grid-cols-3 gap-3">
@@ -94,15 +95,15 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
                   onClick={() => setSelectedCard('efficiency')}
                   className={`rounded-lg border p-4 text-left transition-all ${
                     selectedCard === 'efficiency'
-                      ? 'border-blue-500 bg-blue-50 dark:border-blue-500 dark:bg-blue-950/30'
-                      : 'border-zinc-200 bg-white hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-700'
+                      ? 'border-blue-500 bg-blue-950/30'
+                      : 'border-zinc-800 bg-zinc-900 hover:border-zinc-700'
                   }`}
                 >
-                  <Target className="h-8 w-8 mb-2 text-blue-600 dark:text-blue-400" />
-                  <div className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">
+                  <Target className="h-8 w-8 mb-2 text-blue-400" />
+                  <div className="text-sm font-semibold text-zinc-50">
                     Efficiency Score
                   </div>
-                  <div className="text-xs text-zinc-600 dark:text-zinc-400 mt-1">
+                  <div className="text-xs text-zinc-400 mt-1">
                     {result.efficiencyScore.overall}/100
                   </div>
                 </button>
@@ -111,16 +112,16 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
                   onClick={() => setSelectedCard('savings')}
                   className={`rounded-lg border p-4 text-left transition-all ${
                     selectedCard === 'savings'
-                      ? 'border-green-500 bg-green-50 dark:border-green-500 dark:bg-green-950/30'
-                      : 'border-zinc-200 bg-white hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-700'
+                      ? 'border-green-500 bg-green-950/30'
+                      : 'border-zinc-800 bg-zinc-900 hover:border-zinc-700'
                   }`}
                 >
-                  <TrendingDown className="h-8 w-8 mb-2 text-green-600 dark:text-green-400" />
-                  <div className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">
+                  <TrendingDown className="h-8 w-8 mb-2 text-green-400" />
+                  <div className="text-sm font-semibold text-zinc-50">
                     Savings Found
                   </div>
-                  <div className="text-xs text-zinc-600 dark:text-zinc-400 mt-1">
-                    {formatCurrency(result.totalMonthlySavings)}/mo
+                  <div className="text-xs text-zinc-400 mt-1">
+                    {formatCurrency(result.totalMonthlySavings, currency)}/mo
                   </div>
                 </button>
 
@@ -128,15 +129,15 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
                   onClick={() => setSelectedCard('profile')}
                   className={`rounded-lg border p-4 text-left transition-all ${
                     selectedCard === 'profile'
-                      ? 'border-purple-500 bg-purple-50 dark:border-purple-500 dark:bg-purple-950/30'
-                      : 'border-zinc-200 bg-white hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-700'
+                      ? 'border-purple-500 bg-purple-950/30'
+                      : 'border-zinc-800 bg-zinc-900 hover:border-zinc-700'
                   }`}
                 >
-                  <User className="h-8 w-8 mb-2 text-purple-600 dark:text-purple-400" />
-                  <div className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">
+                  <User className="h-8 w-8 mb-2 text-purple-400" />
+                  <div className="text-sm font-semibold text-zinc-50">
                     Operating Profile
                   </div>
-                  <div className="text-xs text-zinc-600 dark:text-zinc-400 mt-1">
+                  <div className="text-xs text-zinc-400 mt-1">
                     {result.operatingProfile.profile.name}
                   </div>
                 </button>
@@ -144,18 +145,18 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
             </div>
 
             {/* Preview */}
-            <div className="mb-6 rounded-lg border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-900/50">
-              <div className="text-xs font-semibold text-zinc-600 dark:text-zinc-400 mb-2">
+            <div className="mb-6 rounded-lg border border-zinc-800 bg-zinc-900/50 p-4">
+              <div className="text-xs font-semibold text-zinc-400 mb-2">
                 Preview:
               </div>
-              <div className="text-sm text-zinc-700 dark:text-zinc-300 whitespace-pre-line">
+              <div className="text-sm text-zinc-300 whitespace-pre-line">
                 {getShareText()}
               </div>
             </div>
 
             {/* Share URL */}
             <div className="mb-6">
-              <div className="text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-2">
+              <div className="text-sm font-semibold text-zinc-300 mb-2">
                 Share link:
               </div>
               <div className="flex gap-2">
@@ -163,7 +164,7 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
                   type="text"
                   value={shareUrl}
                   readOnly
-                  className="flex-1 rounded-lg border border-zinc-200 bg-white px-4 py-2 text-sm dark:border-zinc-800 dark:bg-zinc-900"
+                  className="flex-1 rounded-lg border border-zinc-800 bg-zinc-900 px-4 py-2 text-sm"
                 />
                 <Button onClick={handleCopy} variant="outline" size="sm">
                   {copied ? <Check className="h-4 w-4" /> : <Link2 className="h-4 w-4" />}
@@ -176,7 +177,7 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
             <div className="grid grid-cols-2 gap-3">
               <Button
                 onClick={handleTwitterShare}
-                className="bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
+                className="bg-white text-black hover:bg-zinc-200"
               >
                 <Share2 className="h-4 w-4 mr-2" />
                 Share on 𝕏
@@ -191,7 +192,7 @@ export function ShareModal({ isOpen, onClose, result }: ShareModalProps) {
             </div>
 
             {/* Footer Note */}
-            <p className="mt-4 text-xs text-center text-zinc-500 dark:text-zinc-500">
+            <p className="mt-4 text-xs text-center text-zinc-500">
               Shared results are public but don't include personal information
             </p>
           </motion.div>
