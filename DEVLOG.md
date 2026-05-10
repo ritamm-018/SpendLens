@@ -1,35 +1,71 @@
 # Development Log — SpendLens
 
-## Day 1 — 2024-05-08
+## Day 1 — 2026-05-07
 
-**Hours worked:** 6
+**Hours worked:** 2
 
 **What I did:**
-- Set up Next.js 16 project with TypeScript, Tailwind CSS 4, and ESLint
-- Created project structure with app router, components, and lib directories
-- Built landing page with hero section, problem/solution, how-it-works, FAQ, and CTA
-- Researched pricing for 9 AI tools (Cursor, GitHub Copilot, ChatGPT, Claude, Gemini, OpenAI API, Anthropic API, Windsurf, v0)
-- Created audit form with React Hook Form + Zod validation for multi-tool input
-- Set up form state persistence using sessionStorage
+- Set up Next.js 16 project with TypeScript, Tailwind CSS 4, and ESLint using Create Next App
+- Initialized git repository
+- Created basic project structure
+- Configured initial dependencies and build tools
 
 **What I learned:**
 - Next.js 16 App Router has breaking changes from v14 — had to read the migration docs carefully
-- Zod's discriminated unions are perfect for tool-specific validation (different plans per tool)
-- Pricing data is harder to find than expected — enterprise plans are often "Contact Sales" with no public pricing
-- sessionStorage is better than localStorage for audit data since it's temporary
+- Tailwind CSS 4 has a new configuration approach
+- Setting up the foundation properly saves time later
 
 **Blockers / what I'm stuck on:**
-- Deciding between deterministic rules vs. AI for audit logic. Leaning toward deterministic because financial recommendations need to be trustworthy and explainable.
-- Not sure if I should build progressive onboarding (multi-screen) or simple form first. Going with simple form for MVP.
+- Need to decide on the overall architecture and feature scope
+- Planning out the audit engine logic
 
 **Plan for tomorrow:**
-- Build audit engine with optimization rules (excess seats, wrong plans, overlaps)
-- Create pricing database with verified sources and citations
-- Start on results page design with savings hero section
+- Build out the full landing page
+- Create audit form with multi-tool support
+- Research pricing for all 9 AI tools
+- Start on audit engine logic
 
 ---
 
-## Day 2 — 2024-05-09
+## Day 2 — 2026-05-08
+
+**Hours worked:** 10
+
+**What I did:**
+- Built complete landing page with hero section, problem/solution, how-it-works, FAQ, and CTA
+- Researched pricing for 9 AI tools (Cursor, GitHub Copilot, ChatGPT, Claude, Gemini, OpenAI API, Anthropic API, Windsurf, v0)
+- Created audit form with React Hook Form + Zod validation for multi-tool input
+- Set up form state persistence using sessionStorage
+- Built audit engine with 11 optimization rules in priority order
+- Created pricing database with 40+ plans across 9 tools, all with source URLs
+- Implemented rule execution logic: excess seats, enterprise overkill, premium overkill, tool overlaps, etc.
+- Added confidence scoring for each recommendation (high/medium/low)
+- Created results page with savings hero, tool-by-tool breakdown, and recommendations
+- Set up API route for audit processing with Zod validation
+
+**What I learned:**
+- Zod's discriminated unions are perfect for tool-specific validation (different plans per tool)
+- Pricing data is harder to find than expected — enterprise plans are often "Contact Sales" with no public pricing
+- sessionStorage is better than localStorage for audit data since it's temporary
+- Deterministic rules are the right choice — AI would hallucinate savings or make inconsistent recommendations
+- Priority ordering matters — excess seats should be detected before suggesting plan changes
+- Conservative estimates build trust — better to underestimate savings than overestimate
+- The "already optimized" path is important — don't force recommendations when none exist
+
+**Blockers / what I'm stuck on:**
+- Struggling with TypeScript types for the audit result — lots of nested objects
+- Not sure how to handle tools with unknown pricing (enterprise "Contact Sales")
+- Debating whether to show $0 savings as "You're doing great!" or hide those audits
+
+**Plan for tomorrow:**
+- Add intelligence engine (efficiency scores, benchmarking, operating profiles)
+- Create benchmark data with realistic segments
+- Build category analysis for spend breakdown
+- Update UI to professional aesthetic
+
+---
+
+## Day 3 — 2026-05-09
 
 **Hours worked:** 7
 
@@ -59,7 +95,7 @@
 
 ---
 
-## Day 3 — 2024-05-10
+## Day 3 — 2026-05-09
 
 **Hours worked:** 8
 
@@ -70,26 +106,40 @@
 - Added category analysis engine for spend breakdown by category
 - Built strategic insights generator for executive-level recommendations
 - Created results components: efficiency hero, benchmark section, profile badge, category chart
+- Refactored entire UI to professional Bloomberg Terminal aesthetic
+- Removed all emojis, replaced with Lucide icons
+- Updated typography to use tabular numbers, proper spacing, uppercase labels
+- Changed color palette to subtle zinc-based with emerald/amber/rose for status
+- Added share modal with 3 card types (efficiency, savings, profile)
+- Created trust badges component with verification timestamps
+- Added multi-currency support (21 global currencies with auto-detection)
+- Built CurrencySelect and CurrencyInput components
+- Integrated currency throughout audit form and results
 
 **What I learned:**
 - Weighted scoring is tricky — had to ensure components sum to 100 and handle edge cases
 - Benchmark data needs to be realistic but not too specific (privacy concerns)
 - Operating profiles need to feel aspirational, not judgmental
 - Recharts is great for data visualization but has a learning curve
+- Professional design is about restraint — less is more
+- Tabular numbers make metrics look more credible
+- Subtle shadows and borders are better than flashy gradients
+- Consistency matters — every component should feel like the same product
 
 **Blockers / what I'm stuck on:**
 - TypeScript errors with benchmark data lookup — some team sizes fall between segments
-- Not sure if efficiency score should be 0-100 or letter grades (A-F)
+- Currency dropdown z-index issues with overlapping elements
 - Debating whether to show alternative profiles or just the top match
 
 **Plan for tomorrow:**
-- Update UI to professional Bloomberg Terminal aesthetic (remove emojis, clean typography)
-- Add trust badges (pricing verified dates, confidence scores)
-- Create share functionality with Open Graph tags
+- Write comprehensive tests for audit engine and utilities
+- Set up CI/CD with GitHub Actions
+- Create documentation files (README, ARCHITECTURE, etc.)
+- Conduct user interviews
 
 ---
 
-## Day 4 — 2024-05-11
+## Day 4 — 2026-05-10
 
 **Hours worked:** 6
 
