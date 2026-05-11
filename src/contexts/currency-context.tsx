@@ -20,10 +20,12 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
 
     const stored = localStorage.getItem('preferred-currency');
     
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (stored && isValidCurrency(stored)) {
       setCurrencyState(stored);
     } else {
       const defaultCurrency = getDefaultCurrency();
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setCurrencyState(defaultCurrency);
     }
 

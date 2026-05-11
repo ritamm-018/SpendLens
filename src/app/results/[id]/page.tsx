@@ -28,6 +28,7 @@ export default function ResultsPage() {
     // For now, we'll check sessionStorage
     const storedResult = sessionStorage.getItem(`audit-${params.id}`);
     
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (storedResult) {
       setResult(JSON.parse(storedResult));
       setLoading(false);

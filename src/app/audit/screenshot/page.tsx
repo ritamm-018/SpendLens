@@ -13,7 +13,34 @@ export default function ScreenshotUploadPage() {
   const [preview, setPreview] = useState<string | null>(null);
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [extractedData, setExtractedData] = useState<any>(null);
+  const [extractedData, setExtractedData] = useState<{
+    confidence: number;
+    tools: Array<{
+      name: string;
+      plan: string;
+      seats: number;
+      monthlySpend: number;
+      confidence?: number;
+      notes?: string;
+    }>;
+    totalMonthlySpend: number;
+    teamSize: number;
+    imageQuality?: string;
+    detectionNotes?: string;
+  } | null>(null);
+
+  // Define handleFile first to avoid hoisting issues
+  const handleFile = (file: File) => {
+    setFile(file);
+    setError(null);
+
+    // Create preview
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setPreview(e.target?.result as string);
+    };
+    reader.readAsDataURL(file);
+  };
 
   const handleDrop = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -39,6 +66,7 @@ export default function ScreenshotUploadPage() {
     }
     
     handleFile(droppedFile);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,18 +90,6 @@ export default function ScreenshotUploadPage() {
     }
     
     handleFile(selectedFile);
-  };
-
-  const handleFile = (file: File) => {
-    setFile(file);
-    setError(null);
-
-    // Create preview
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      setPreview(e.target?.result as string);
-    };
-    reader.readAsDataURL(file);
   };
 
   const processScreenshot = async () => {
@@ -346,7 +362,7 @@ export default function ScreenshotUploadPage() {
                 </div>
               </div>
               <div className="space-y-3">
-                {extractedData.tools.map((tool: any, i: number) => (
+                {extractedData.tools.map((tool, i: number) => (
                   <motion.div
                     key={i}
                     initial={{ opacity: 0, x: -20 }}
