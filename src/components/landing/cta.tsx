@@ -24,7 +24,7 @@ export function CTA() {
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link href="/audit">
-              <Button size="lg" variant="premium" className="group">
+              <Button size="lg" className="group bg-emerald-600 hover:bg-emerald-700">
                 Discover My AI Operating Score
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
