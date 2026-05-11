@@ -1,12 +1,36 @@
 # SpendLens - AI Spend Audit Platform
 
-> **Audit your AI stack in 90 seconds and uncover hidden savings.**
+## 🎯 What is SpendLens?
 
-SpendLens is a production-grade web application that helps startups optimize their AI tool spending. It analyzes your stack across Cursor, GitHub Copilot, ChatGPT, Claude, and more to identify overspending, wrong plans, unused seats, and consolidation opportunities.
+SpendLens is a free AI spend audit tool that helps startups identify overspending on tools like Cursor, ChatGPT, and Claude in 90 seconds. Built for engineering leads at Series A startups who need to justify their AI tool budget to finance teams.
+
+> **Audit your AI stack instantly and uncover hidden savings.**
+
+## 🌐 Live Demo
+
+**Deployed URL:** [Coming Soon - Deploying May 12]
+
+<!-- After deployment, replace with: https://spendlens.vercel.app -->
+
+## 📸 Screenshots
+
+### 1. Landing Page
+![Landing Page](./screenshots/landing.png)
+*Premium dark theme with clear value proposition*
+
+### 2. Audit Form
+![Audit Form](./screenshots/audit-form.png)
+*Multi-tool input with 9 AI platforms supported*
+
+### 3. Results Page
+![Results Page](./screenshots/results.png)
+*Detailed breakdown with savings calculations*
+
+<!-- Note: Add actual screenshots before submission -->
 
 ## 🎯 Project Overview
 
-This is a **real, deployable product** built for a startup internship evaluation. It demonstrates:
+This is a **real, deployable product** built for Credex internship evaluation. It demonstrates:
 
 - **Entrepreneurial thinking**: Solving a genuine pain point for AI-first startups
 - **Product design**: Viral sharing mechanics, conversion optimization, lead generation
@@ -141,6 +165,33 @@ spendlens/
 ├── .github/workflows/         # CI/CD
 └── tests/                     # Test files
 ```
+
+## 🤔 Key Decisions & Trade-offs
+
+### 1. Deterministic Rules vs AI for Audit Logic
+**Decision:** Used deterministic rules (11 hardcoded rules)  
+**Why:** Financial recommendations must be trustworthy and explainable. AI would hallucinate savings or make inconsistent recommendations. A finance person needs to read our reasoning and agree.  
+**Trade-off:** Less flexible than AI, but infinitely more reliable for this use case.
+
+### 2. sessionStorage vs Database for MVP
+**Decision:** Used sessionStorage for audit results, database code ready but not deployed  
+**Why:** Assignment says "no login required" - sessionStorage is perfect for temporary, one-time audits. Reduces infrastructure complexity and deployment friction.  
+**Trade-off:** Results aren't persistent, but that's intentional for MVP. Database integration is 5 minutes of env var config.
+
+### 3. Next.js 16 App Router vs Pages Router
+**Decision:** Used App Router with React Server Components  
+**Why:** Better performance (smaller bundles), streaming, built-in API routes. Assignment emphasizes shipping production-ready code.  
+**Trade-off:** Steeper learning curve, but worth it for performance gains and modern patterns.
+
+### 4. Multi-currency Support
+**Decision:** Added support for 21 global currencies with auto-detection  
+**Why:** User interviews revealed international users. "Why is this USD-only?" was a common complaint. Shows attention to real user needs.  
+**Trade-off:** Added complexity (exchange rates, formatting), but significantly improves UX for non-US users.
+
+### 5. Conservative Savings Estimates
+**Decision:** Underestimate savings rather than overestimate  
+**Why:** Trust is everything for financial tools. Better to surprise users with "actually saved more" than "you lied about savings."  
+**Trade-off:** Lower headline numbers, but higher trust and conversion.
 
 ## 🧪 Testing
 
