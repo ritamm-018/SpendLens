@@ -8,9 +8,8 @@ SpendLens is a free AI spend audit tool that helps startups identify overspendin
 
 ## 🌐 Live Demo
 
-**Deployed URL:** https://spend-lens-jpbqm82oo-ritams-projects-83d26bdd.vercel.app
 
-Try it now: [Run Your AI Spend Audit →](https://spend-lens-jpbqm82oo-ritams-projects-83d26bdd.vercel.app)
+Deployed URL: https://spend-lens-teal.vercel.app/
 
 ## 📸 Screenshots
 
