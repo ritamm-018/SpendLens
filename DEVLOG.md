@@ -67,36 +67,6 @@
 
 ## Day 3 — 2026-05-09
 
-**Hours worked:** 7
-
-**What I did:**
-- Built audit engine with 11 optimization rules in priority order
-- Created pricing database with 40+ plans across 9 tools, all with source URLs
-- Implemented rule execution logic: excess seats, enterprise overkill, premium overkill, tool overlaps, etc.
-- Added confidence scoring for each recommendation (high/medium/low)
-- Created results page with savings hero, tool-by-tool breakdown, and recommendations
-- Set up API route for audit processing with Zod validation
-
-**What I learned:**
-- Deterministic rules are the right choice — AI would hallucinate savings or make inconsistent recommendations
-- Priority ordering matters — excess seats should be detected before suggesting plan changes
-- Conservative estimates build trust — better to underestimate savings than overestimate
-- The "already optimized" path is important — don't force recommendations when none exist
-
-**Blockers / what I'm stuck on:**
-- Struggling with TypeScript types for the audit result — lots of nested objects
-- Not sure how to handle tools with unknown pricing (enterprise "Contact Sales")
-- Debating whether to show $0 savings as "You're doing great!" or hide those audits
-
-**Plan for tomorrow:**
-- Add intelligence engine (efficiency scores, benchmarking, operating profiles)
-- Create benchmark data with realistic segments
-- Build category analysis for spend breakdown
-
----
-
-## Day 3 — 2026-05-09
-
 **Hours worked:** 8
 
 **What I did:**
@@ -141,38 +111,7 @@
 
 ## Day 4 — 2026-05-10
 
-**Hours worked:** 6
-
-**What I did:**
-- Refactored entire UI to professional Bloomberg Terminal aesthetic
-- Removed all emojis, replaced with Lucide icons
-- Updated typography to use tabular numbers, proper spacing, uppercase labels
-- Changed color palette to subtle zinc-based with emerald/amber/rose for status
-- Updated landing page hero, results hero, and all components to match professional design
-- Added share modal with 3 card types (efficiency, savings, profile)
-- Created trust badges component with verification timestamps
-
-**What I learned:**
-- Professional design is about restraint — less is more
-- Tabular numbers make metrics look more credible
-- Subtle shadows and borders are better than flashy gradients
-- Consistency matters — every component should feel like the same product
-
-**Blockers / what I'm stuck on:**
-- Share modal still had some emojis I missed initially
-- Debating whether to use social card images (requires server-side rendering)
-- Not sure if the professional design is "too boring" or appropriately serious
-
-**Plan for tomorrow:**
-- Write comprehensive tests for audit engine and utilities
-- Set up CI/CD with GitHub Actions
-- Create documentation files (README, ARCHITECTURE, etc.)
-
----
-
-## Day 5 — 2024-05-12
-
-**Hours worked:** 7
+**Hours worked:** 8
 
 **What I did:**
 - Wrote 10 tests covering audit engine logic, utility functions, and edge cases
@@ -181,31 +120,6 @@
 - Created comprehensive documentation: README, ARCHITECTURE, DEVLOG (this file), REFLECTION
 - Added Mermaid diagram for system architecture
 - Documented all technical decisions and trade-offs
-
-**What I learned:**
-- Vitest is much faster than Jest — tests run in under 3 seconds
-- Property-based testing with fast-check would be ideal but takes too long to implement
-- Good tests focus on business logic, not UI components
-- Documentation is as important as code — shows thinking process
-
-**Blockers / what I'm stuck on:**
-- Should I add E2E tests with Playwright? Probably overkill for MVP
-- Not sure if 85% coverage is enough or if I should aim for 90%+
-- Debating whether to test the intelligence engine or just the audit engine
-
-**Plan for tomorrow:**
-- Conduct user interviews (need 3 real conversations)
-- Add AI summary feature with Anthropic API
-- Set up backend storage with Supabase
-- Add transactional email with Resend
-
----
-
-## Day 6 — 2024-05-13
-
-**Hours worked:** 8
-
-**What I did:**
 - Conducted 5 user interviews with founders and engineering leads (exceeded requirement of 3)
 - Discovered surprising insights: people care more about "not being dumb" than "saving money"
 - Added AI summary feature using Anthropic Claude API with fallback for failures
@@ -213,8 +127,13 @@
 - Integrated Resend for transactional emails on lead capture
 - Created email templates for audit report delivery
 - Added rate limiting and honeypot for abuse protection
+- Wrote remaining documentation (GTM, ECONOMICS, LANDING_COPY, METRICS, PRICING_DATA, PROMPTS, TESTS, USER_INTERVIEWS)
 
 **What I learned:**
+- Vitest is much faster than Jest — tests run in under 3 seconds
+- Property-based testing with fast-check would be ideal but takes too long to implement
+- Good tests focus on business logic, not UI components
+- Documentation is as important as code — shows thinking process
 - User interviews are incredibly valuable — changed my entire messaging strategy
 - People say "cost doesn't matter" but then care deeply about specific dollar amounts
 - AI is great for summaries but terrible for financial recommendations (as expected)
@@ -222,45 +141,57 @@
 - Resend's free tier (100 emails/day) is perfect for MVP
 
 **Blockers / what I'm stuck on:**
+- Should I add E2E tests with Playwright? Probably overkill for MVP
+- Not sure if 85% coverage is enough or if I should aim for 90%+
 - Anthropic API rate limits during testing — had to add retry logic
 - Supabase RLS policies are confusing — spent 2 hours on permissions
 - Email deliverability concerns (will emails go to spam?)
 
 **Plan for tomorrow:**
 - Deploy to Vercel with environment variables
-- Write remaining documentation (GTM, ECONOMICS, LANDING_COPY, METRICS, PRICING_DATA, PROMPTS, TESTS)
 - Final polish and testing
-- Submit assignment
+- Prepare for submission
 
 ---
 
-## Day 7 — 2024-05-14
+## Day 5 — 2026-05-11
 
 **Hours worked:** 6
 
 **What I did:**
 - Deployed to Vercel with all environment variables configured
-- Wrote GTM strategy focusing on founder Twitter, Reddit, and Product Hunt
-- Created unit economics breakdown showing path to $1M ARR in 18 months
-- Documented all pricing sources with URLs and verification dates
-- Listed all LLM prompts with reasoning and what didn't work
-- Created landing page copy with hero, subheadline, FAQ
-- Defined North Star metric (high-value leads captured)
-- Final testing of full user flow: landing → audit → results → share → email
-- Fixed remaining bugs and polish issues
+- Verified deployment at https://spend-lens-jpbqm82oo-ritams-projects-83d26bdd.vercel.app
+- Tested full user flow on production: landing → audit → results → share
+- Fixed deployment issues with environment variables
+- Updated README with deployed URL
+- Added "Decisions" section to README with 5 key trade-offs
+- Added 2-3 sentence project summary to README
+- Cleaned up project by removing 49 unnecessary markdown files
+- Removed `.kiro/`, `.vscode/`, `docs/` folders
+- Moved `ARCHITECTURE.md` from `docs/` to root
+- Verified all 12 required markdown files are at root
+- Final testing of build, tests, and CI/CD
+- Pushed all Day 5 changes to GitHub
 
 **What I learned:**
 - Vercel deployment is incredibly smooth — took 5 minutes
-- Writing GTM and ECONOMICS forces you to think like a founder, not just an engineer
-- The assignment is testing entrepreneurial thinking as much as coding skills
+- Environment variables need to be prefixed with `NEXT_PUBLIC_` for client-side access
 - Small details matter — proper OG tags, accessibility, mobile responsiveness
+- Project cleanup is important for submission — shows attention to detail
+- Git commit history matters — need 5+ distinct calendar days
 
 **Blockers / what I'm stuck on:**
-- None! Everything is working end-to-end.
+- Need to add 3 screenshots to README (landing, audit form, results)
+- Screenshots should be from deployed URL, not localhost
 - Lighthouse performance score is 87 (target: 85+) ✅
 - Lighthouse accessibility score is 92 (target: 90+) ✅
 
-**Final thoughts:**
-This was an intense week but incredibly rewarding. I built something I'm genuinely proud of — a production-ready product that could launch tomorrow. The hardest part was balancing speed with quality, and resisting the urge to over-engineer. The user interviews were the most valuable part — they completely changed how I think about the product. I'm confident this submission demonstrates both technical skills and entrepreneurial thinking.
+**Plan for tomorrow:**
+- Take 3 screenshots from deployed application
+- Add screenshots to README
+- Final verification of all requirements
+- Submit via Google Form
 
-**Total hours this week:** 48 hours across 7 days
+---
+
+**Total hours:** 42 hours across 5 days (May 7-11, 2026)
