@@ -15,18 +15,16 @@ Try it now: [Run Your AI Spend Audit →](https://spend-lens-jpbqm82oo-ritams-pr
 ## 📸 Screenshots
 
 ### 1. Landing Page
-![Landing Page](./screenshots/landing.png)
+![Landing Page](./screenshots/Screenshot%201.png)
 *Premium dark theme with clear value proposition*
 
 ### 2. Audit Form
-![Audit Form](./screenshots/audit-form.png)
+![Audit Form](./screenshots/Screenshot%202.png)
 *Multi-tool input with 9 AI platforms supported*
 
 ### 3. Results Page
-![Results Page](./screenshots/results.png)
+![Results Page](./screenshots/Screenshot%203.png)
 *Detailed breakdown with savings calculations*
-
-<!-- Note: Add actual screenshots before submission -->
 
 ## 🎯 Project Overview
 
