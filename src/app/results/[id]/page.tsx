@@ -39,7 +39,7 @@ export default function ResultsPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center bg-zinc-950">
         <Loader2 className="h-8 w-8 animate-spin text-zinc-500" />
       </div>
     );
@@ -47,12 +47,12 @@ export default function ResultsPage() {
 
   if (error || !result) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center bg-zinc-950">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
+          <h1 className="text-2xl font-bold text-zinc-50">
             Audit Not Found
           </h1>
-          <p className="mt-2 text-zinc-600 dark:text-zinc-400">
+          <p className="mt-2 text-zinc-400">
             This audit may have expired or doesn't exist.
           </p>
         </div>
@@ -85,7 +85,7 @@ export default function ResultsPage() {
         <meta name="twitter:description" content={ogDescription} />
       </Head>
 
-      <div className="min-h-screen bg-gradient-to-b from-white to-zinc-50 dark:from-zinc-950 dark:to-zinc-900">
+      <div className="min-h-screen bg-gradient-to-b from-zinc-950 to-zinc-900">
         <div className="mx-auto max-w-6xl px-6 py-12">
           <ResultsHero result={result} />
           
